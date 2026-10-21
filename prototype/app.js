@@ -512,4 +512,30 @@ function initPantry() {
     .map(([k]) => k);
 }
 
+// ══════════════════════════════════════════════
+// POST-CHECKOUT: Mark meal done
+// ══════════════════════════════════════════════
+function markMealDone(btn) {
+  const card = btn.closest('[style*="background"]').parentElement;
+  card.style.opacity = '0.4';
+  btn.textContent = '✓ Done';
+  btn.disabled = true;
+  btn.style.background = 'var(--ok-lt)';
+  btn.style.color = 'var(--ok)';
+  btn.style.borderColor = 'var(--ok)';
+  toast('Meal marked as done!');
+}
+
+// ══════════════════════════════════════════════
+// POST-CHECKOUT: Update confirmed screen totals
+// ══════════════════════════════════════════════
+function updateConfirmation() {
+  if (state.shoppingList) {
+    const el = document.getElementById('conf-items');
+    if (el) el.textContent = state.shoppingList.items.length + ' items';
+    const tot = document.getElementById('conf-total');
+    if (tot) tot.innerHTML = Engine.fmt(state.shoppingList.payable);
+  }
+}
+
 initPantry();
