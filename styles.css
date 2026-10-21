@@ -470,4 +470,6 @@ body{font-family:var(--font);background:#DDDDE0;color:var(--text);-webkit-font-s
 .ld-sub{font-size:13px;color:var(--t2);margin-top:3px}
 
 /* ── Utils ── */
+.li-need{font-size:10px;color:var(--t3);margin-top:1px;font-style:italic}
+
 .mt-4{margin-top:4px}.mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-16{margin-top:16px}.mt-20{margin-top:20px}.mt-24{margin-top:24px}

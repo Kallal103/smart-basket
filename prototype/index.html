@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Smart Basket — Intelligent Meal Planning for Retailers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Basket — Meal Planner</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,8 +17,8 @@
 <div class="phone" id="phone">
 <div class="toast-container" id="toasts"></div>
 
-<!-- ══ SPLASH ══ -->
-<div id="s-splash" class="scr on">
+<!-- ══ 1. WELCOME (try before registering) ══ -->
+<div id="s-welcome" class="scr on">
   <div class="status-bar"><span class="sb-time">9:41</span><span class="sb-icons">📶 🔋</span></div>
   <div class="splash">
     <div class="splash-orb"></div><div class="splash-orb"></div>
@@ -26,350 +26,270 @@
       <div class="splash-mark">🛒</div>
       <div class="splash-brand">SMART BASKET</div>
       <h1>Plan meals.<br>Shop smarter.</h1>
-      <p>Pick what your family eats this week. We build the list and fill your cart — in under 3 minutes.</p>
-      <div class="splash-cta"><button class="btn" onclick="go('s-how')">Get Started</button></div>
-      <div class="splash-login">Already have an account? <b onclick="go('s-auth')">Sign in</b></div>
+      <p>Tell us about your family and we'll plan a week of meals within your budget — no account needed.</p>
+      <div class="splash-cta"><button class="btn" onclick="go('s-setup')">Build my first plan</button></div>
     </div>
   </div>
 </div>
 
-<!-- ══ HOW IT WORKS ══ -->
-<div id="s-how" class="scr">
-  <div class="onb">
-    <div class="onb-slides">
-      <div class="onb-slide on"><div class="onb-vis v1">📅</div><div class="onb-step">Step 1 of 3</div><h2>Plan your week</h2><p>Pick dishes or let AI fill your calendar with meals your family loves — within budget.</p></div>
-      <div class="onb-slide"><div class="onb-vis v2">📋</div><div class="onb-step">Step 2 of 3</div><h2>Smart shopping list</h2><p>Ingredients combined, matched to real store products with brand, pack size and price.</p></div>
-      <div class="onb-slide"><div class="onb-vis v3">🛒</div><div class="onb-step">Step 3 of 3</div><h2>Add all to cart</h2><p>One tap sends everything to your online cart. A full weekly basket in under 3 minutes.</p></div>
-    </div>
-    <div class="onb-dots"><div class="onb-d on"></div><div class="onb-d"></div><div class="onb-d"></div></div>
-    <div class="onb-btm"><button class="btn btn-out" id="onb-bk" style="visibility:hidden" onclick="onbN(-1)">Back</button><button class="btn btn-brand" id="onb-nx" onclick="onbN(1)">Next</button></div>
-  </div>
-</div>
-
-<!-- ══ AUTH ══ -->
-<div id="s-auth" class="scr">
-  <div class="auth">
-    <div class="status-bar"><span class="sb-time">9:41</span><span class="sb-icons">📶 🔋</span></div>
-    <div class="auth-top"><div class="splash-brand" style="opacity:.4">SMART BASKET</div><h1>Create your account</h1><p>Start planning in 30 seconds</p></div>
-    <div class="auth-form">
-      <div class="auth-field"><label class="auth-lbl">Full name</label><input class="auth-inp" value="Fatima Ahmed"></div>
-      <div class="auth-field"><label class="auth-lbl">Phone</label><input class="auth-inp" type="tel" placeholder="01XXXXXXXXX"></div>
-      <div class="auth-field"><label class="auth-lbl">Email</label><input class="auth-inp" type="email" placeholder="you@email.com"></div>
-      <div class="auth-field"><label class="auth-lbl">Password</label><input class="auth-inp" type="password" placeholder="8+ characters"></div>
-      <button class="btn btn-brand mt-8" onclick="go('s-setup');toast('Account created!')">Create Account</button>
-      <div class="auth-div">or continue with</div>
-      <div class="auth-social"><button onclick="go('s-setup');toast('Signed in!')">📱 Phone OTP</button><button onclick="go('s-setup');toast('Signed in!')"><b>G</b> Google</button></div>
-      <div class="auth-foot">By signing up you agree to our <a href="#">Terms</a> & <a href="#">Privacy</a></div>
-      <div class="auth-switch">Have an account? <b onclick="go('s-setup')">Sign in</b></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ SETUP ══ -->
+<!-- ══ 2. SETUP (household, budget, diet — no account required) ══ -->
 <div id="s-setup" class="scr">
   <div class="status-bar"><span class="sb-time">9:41</span><span class="sb-icons">📶 🔋</span></div>
-  <div class="setup-top"><div class="tag">SMART BASKET</div><h1>Set up your household</h1><p>We'll personalize your meal plans</p></div>
+  <div class="setup-top"><div class="tag">SMART BASKET</div><h1>About your household</h1><p>We'll personalise portions and budget</p></div>
   <div class="sf">
-    <div class="fg"><label>People in your household</label><div class="stepper"><button onclick="adjHH(-1)">−</button><span class="val" id="hh-v">4</span><button onclick="adjHH(1)">+</button></div></div>
-    <div class="fg"><label>Weekly food budget</label><input type="range" class="slider" min="1000" max="8000" value="3000" step="250" oninput="updB(this.value)"><div class="budget-v" id="bv">&#2547;3,000</div><div class="hint">Average family of 4: &#2547;2,500–4,000/week</div></div>
-    <div class="fg"><label>Diet preferences</label><div class="chips"><button class="chip on" onclick="tog(this)">No beef</button><button class="chip" onclick="tog(this)">Vegetarian</button><button class="chip" onclick="tog(this)">Low sugar</button><button class="chip" onclick="tog(this)">High protein</button><button class="chip" onclick="tog(this)">Mild spice</button><button class="chip" onclick="tog(this)">No fish</button></div></div>
-    <div class="fg"><label>Vegetarian days</label><div class="chips"><button class="chip" onclick="tog(this)">Sat</button><button class="chip" onclick="tog(this)">Sun</button><button class="chip" onclick="tog(this)">Mon</button><button class="chip" onclick="tog(this)">Tue</button><button class="chip" onclick="tog(this)">Wed</button><button class="chip" onclick="tog(this)">Thu</button><button class="chip" onclick="tog(this)">Fri</button></div></div>
-    <button class="btn btn-brand mt-8" onclick="firstPlan()">Start Planning</button>
-  </div>
-</div>
-
-<!-- ══ FIRST WIN ══ -->
-<div id="s-win" class="scr" style="padding-bottom:0">
-  <div class="status-bar dark"><span class="sb-time">9:41</span><span class="sb-icons">📶 🔋</span></div>
-  <div class="win">
-    <div class="win-ico">🎉</div>
-    <h2>Your first week is planned!</h2>
-    <p>21 meals, all within your budget.</p>
-    <div class="win-grid">
-      <div class="win-s"><div class="v brand">21</div><div class="l">Meals</div></div>
-      <div class="win-s"><div class="v brand">7</div><div class="l">Days</div></div>
-      <div class="win-s"><div class="v ok">&#2547;2,840</div><div class="l">Total</div></div>
-      <div class="win-s"><div class="v ok">&#2547;160</div><div class="l">Under budget</div></div>
+    <div class="fg">
+      <label for="hh-stepper">How many people eat at home?</label>
+      <div class="stepper" id="hh-stepper">
+        <button aria-label="Decrease household size" onclick="adjHH(-1)">−</button>
+        <span class="val" id="hh-v" aria-live="polite">4</span>
+        <button aria-label="Increase household size" onclick="adjHH(1)">+</button>
+      </div>
     </div>
-    <div class="win-cta"><button class="btn btn-brand" onclick="goFilled()">See Your Meal Plan →</button></div>
-    <div class="win-tip"><span>💡</span><p><strong>Next:</strong> Review meals, swap any dish, then tap "Shopping List" to see items matched to real products.</p></div>
+
+    <div class="fg">
+      <label for="budget-slider">Weekly food budget</label>
+      <input type="range" class="slider" id="budget-slider" min="1000" max="8000" value="3000" step="250" oninput="updBudget(this.value)" aria-label="Budget slider">
+      <div class="budget-v" id="bv" aria-live="polite">৳3,000</div>
+      <div class="hint">Average family of 4: ৳2,500–4,000/week</div>
+    </div>
+
+    <div class="fg">
+      <label>Dietary exclusions & allergies</label>
+      <div class="chips" id="diet-chips">
+        <button class="chip on" data-id="no_beef" onclick="togChip(this)" role="checkbox" aria-checked="true">No beef</button>
+        <button class="chip" data-id="no_pork" onclick="togChip(this)" role="checkbox" aria-checked="false">No pork</button>
+        <button class="chip" data-id="vegetarian" onclick="togChip(this)" role="checkbox" aria-checked="false">Vegetarian</button>
+        <button class="chip" data-id="no_fish" onclick="togChip(this)" role="checkbox" aria-checked="false">No fish</button>
+        <button class="chip" data-id="no_shellfish" onclick="togChip(this)" role="checkbox" aria-checked="false">No shellfish</button>
+        <button class="chip" data-id="no_dairy" onclick="togChip(this)" role="checkbox" aria-checked="false">Dairy-free</button>
+        <button class="chip" data-id="no_gluten" onclick="togChip(this)" role="checkbox" aria-checked="false">Gluten-free</button>
+        <button class="chip" data-id="no_nuts" onclick="togChip(this)" role="checkbox" aria-checked="false">Nut-free</button>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>Preferences</label>
+      <div class="chips">
+        <button class="chip" data-id="low_sugar" onclick="togChip(this)" role="checkbox" aria-checked="false">Low sugar</button>
+        <button class="chip" data-id="high_protein" onclick="togChip(this)" role="checkbox" aria-checked="false">High protein</button>
+        <button class="chip" data-id="mild_spice" onclick="togChip(this)" role="checkbox" aria-checked="false">Mild spice</button>
+        <button class="chip" data-id="low_oil" onclick="togChip(this)" role="checkbox" aria-checked="false">Low oil</button>
+      </div>
+    </div>
+
+    <button class="btn btn-brand mt-8" onclick="generatePlan()">Generate My Plan</button>
+    <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--t3)">No account needed — try it first</div>
   </div>
 </div>
 
-<!-- ══ EMPTY PLANNER ══ -->
-<div id="s-empty" class="scr">
-  <div class="hdr"><h1>Meal Planner</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
-  <div class="wk-h"><div><h2>This Week</h2><div class="wk-dt">Oct 21 – 27</div></div><div class="wk-nav"><button>‹</button><button>›</button></div></div>
-  <div class="day"><div class="day-h">Saturday <span class="day-dt">Oct 21</span></div>
-    <div class="sl" onclick="openPicker()"><span class="sl-ico">🌅</span><div class="sl-body"><div class="sl-lbl">Breakfast</div><div class="sl-empty">Tap to add</div></div></div>
-    <div class="sl" onclick="openPicker()"><span class="sl-ico">☀️</span><div class="sl-body"><div class="sl-lbl">Lunch</div><div class="sl-empty">Tap to add</div></div></div>
-    <div class="sl" onclick="openPicker()"><span class="sl-ico">🌙</span><div class="sl-body"><div class="sl-lbl">Dinner</div><div class="sl-empty">Tap to add</div></div></div>
-  </div>
-  <div class="day"><div class="day-h">Sunday <span class="day-dt">Oct 22</span></div>
-    <div class="sl" onclick="openPicker()"><span class="sl-ico">🌅</span><div class="sl-body"><div class="sl-lbl">Breakfast</div><div class="sl-empty">Tap to add</div></div></div>
-    <div class="sl" onclick="openPicker()"><span class="sl-ico">☀️</span><div class="sl-body"><div class="sl-lbl">Lunch</div><div class="sl-empty">Tap to add</div></div></div>
-    <div class="sl" onclick="openPicker()"><span class="sl-ico">🌙</span><div class="sl-body"><div class="sl-lbl">Dinner</div><div class="sl-empty">Tap to add</div></div></div>
-  </div>
-  <div class="cta-box"><p>Let AI fill your week with delicious dishes within budget.</p><button class="btn btn-ok" onclick="planWeek()">✨ Plan My Week</button></div>
-  <div class="bnav"><button class="on"><span class="ni">📅</span>Plan</button><button onclick="go('s-list')"><span class="ni">📋</span>List</button><button onclick="go('s-recipes')"><span class="ni">📖</span>Recipes</button><button onclick="go('s-profile')"><span class="ni">👤</span>Profile</button></div>
-</div>
+<!-- ══ 3. MEAL PLAN (fully calculated) ══ -->
+<div id="s-plan" class="scr">
+  <div class="hdr"><h1>Your Meal Plan</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
 
-<!-- ══ FILLED PLAN ══ -->
-<div id="s-filled" class="scr">
-  <div class="hdr"><h1>Meal Planner</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
-  <div class="ai-msg"><span style="font-size:16px">✨</span> 7 days · under budget <strong style="margin-left:auto">&#2547;2,840 / 3,000</strong></div>
-  <div class="bbar" onclick="showOverBudget()"><div><div class="bbar-amt" id="bb-a">&#2547;2,840</div><div class="bbar-sub">of &#2547;3,000</div></div><div class="bbar-trk"><div class="bbar-fill ok" id="bb-f" style="width:94.7%"></div></div><span class="badge b-ok">Under</span></div>
-  <div class="ai-bar"><input placeholder='"Make Friday special"' id="ai-txt"><button onclick="aiReq()">Ask AI</button></div>
-
-  <div class="day"><div class="day-h">Saturday <span class="day-dt">Oct 21</span><span class="day-cost">&#2547;360</span></div>
-    <div class="sl" onclick="slotToRecipe('Paratha')"><span class="sl-ico">🌅</span><div class="sl-body"><div class="sl-lbl">Breakfast</div><div class="sl-name">Paratha & Egg Bhaji</div><div class="sl-bn">পরোটা ও ডিম ভাজি</div></div><div class="sl-pr">&#2547;85</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap" onclick="event.stopPropagation()">Swap</span></div>
-    <div class="sl" onclick="slotToRecipe('Chicken Curry')"><span class="sl-ico">☀️</span><div class="sl-body"><div class="sl-lbl">Lunch</div><div class="sl-name">Chicken Curry & Rice</div><div class="sl-bn">মুরগির তরকারি</div></div><div class="sl-pr">&#2547;180</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap" onclick="event.stopPropagation()">Swap</span></div>
-    <div class="sl" onclick="slotToRecipe('Dal')"><span class="sl-ico">🌙</span><div class="sl-body"><div class="sl-lbl">Dinner</div><div class="sl-name">Dal & Mixed Veg</div><div class="sl-bn">ডাল ও সবজি</div></div><div class="sl-pr">&#2547;95</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap" onclick="event.stopPropagation()">Swap</span></div>
+  <div class="bbar">
+    <div><div class="bbar-amt" id="bb-amt">৳0</div><div class="bbar-sub" id="bb-sub">of ৳3,000</div></div>
+    <div class="bbar-trk"><div class="bbar-fill ok" id="bb-fill" style="width:0"></div></div>
+    <span class="badge b-ok" id="bb-badge">Calculating...</span>
   </div>
 
-  <div class="day"><div class="day-h">Sunday <span class="day-dt">Oct 22</span><span class="day-cost">&#2547;480</span></div>
-    <div class="sl" onclick="slotToRecipe('Luchi')"><span class="sl-ico">🌅</span><div class="sl-body"><div class="sl-lbl">Breakfast</div><div class="sl-name">Luchi & Alur Dom</div><div class="sl-bn">লুচি ও আলুর দম</div></div><div class="sl-pr">&#2547;70</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap" onclick="event.stopPropagation()">Swap</span></div>
-    <div class="sl" onclick="slotToRecipe('Hilsha')"><span class="sl-ico">☀️</span><div class="sl-body"><div class="sl-lbl">Lunch</div><div class="sl-name">Hilsha Fish Curry</div><div class="sl-bn">ইলিশ মাছ</div></div><div class="sl-pr">&#2547;320</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap" onclick="event.stopPropagation()">Swap</span></div>
-    <div class="sl" onclick="slotToRecipe('Khichuri')"><span class="sl-ico">🌙</span><div class="sl-body"><div class="sl-lbl">Dinner</div><div class="sl-name">Khichuri & Egg</div><div class="sl-bn">খিচুড়ি ও ডিম</div></div><div class="sl-pr">&#2547;90</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap" onclick="event.stopPropagation()">Swap</span></div>
+  <div class="ai-bar">
+    <input placeholder="&quot;Make Friday special&quot; or &quot;no oil-heavy food&quot;" id="ai-txt" aria-label="AI request">
+    <button onclick="aiRequest()" aria-label="Send AI request">Ask AI</button>
   </div>
 
-  <div class="day"><div class="day-h">Monday <span class="day-dt">Oct 23</span><span class="day-cost">&#2547;235</span></div>
-    <div class="sl"><span class="sl-ico">🌅</span><div class="sl-body"><div class="sl-lbl">Breakfast</div><div class="sl-name">Toast & Jam</div><div class="sl-bn">টোস্ট ও জ্যাম</div></div><div class="sl-pr">&#2547;45</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap">Swap</span></div>
-    <div class="sl"><span class="sl-ico">☀️</span><div class="sl-body"><div class="sl-lbl">Lunch</div><div class="sl-name">Egg Curry & Rice</div><div class="sl-bn">ডিমের তরকারি</div></div><div class="sl-pr">&#2547;110</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap">Swap</span></div>
-    <div class="sl"><span class="sl-ico">🌙</span><div class="sl-body"><div class="sl-lbl">Dinner</div><div class="sl-name">Begun Bharta</div><div class="sl-bn">বেগুন ভর্তা</div></div><div class="sl-pr">&#2547;80</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap">Swap</span></div>
-  </div>
-
-  <div class="day"><div class="day-h">Wednesday <span class="day-dt">Oct 25</span><span class="day-cost">&#2547;350</span></div>
-    <div class="sl"><span class="sl-ico">🌅</span><div class="sl-body"><div class="sl-lbl">Breakfast</div><div class="sl-name">Fuchka</div><div class="sl-bn">ফুচকা</div></div><div class="sl-pr">&#2547;50</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap">Swap</span></div>
-    <div class="sl" id="wed-sl"><span class="sl-ico">☀️</span><div class="sl-body"><div class="sl-lbl">Lunch</div><div class="sl-name" id="wn">Chicken Biryani</div><div class="sl-bn" id="wb">চিকেন বিরিয়ানি</div></div><div class="sl-pr" id="wp">&#2547;210</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap" id="ws" onclick="event.stopPropagation();openSwap()">Swap</span></div>
-    <div class="sl"><span class="sl-ico">🌙</span><div class="sl-body"><div class="sl-lbl">Dinner</div><div class="sl-name">Shutki Bhorta</div><div class="sl-bn">শুটকি ভর্তা</div></div><div class="sl-pr">&#2547;90</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap">Swap</span></div>
-  </div>
-
-  <div class="day"><div class="day-h">Thursday <span class="day-dt">Oct 26</span><span class="day-cost">&#2547;310</span></div>
-    <div class="sl"><span class="sl-ico">🌅</span><div class="sl-body"><div class="sl-lbl">Breakfast</div><div class="sl-name">Chhola & Paratha</div><div class="sl-bn">ছোলা ও পরোটা</div></div><div class="sl-pr">&#2547;75</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap">Swap</span></div>
-    <div class="sl"><span class="sl-ico">☀️</span><div class="sl-body"><div class="sl-lbl">Lunch</div><div class="sl-name">Rui Fish Jhol</div><div class="sl-bn">রুই মাছের ঝোল</div></div><div class="sl-pr">&#2547;160</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap">Swap</span></div>
-    <div class="sl"><span class="sl-ico">🌙</span><div class="sl-body"><div class="sl-lbl">Dinner</div><div class="sl-name">Moong Dal & Rice</div><div class="sl-bn">মুগ ডাল</div></div><div class="sl-pr">&#2547;70</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap">Swap</span></div>
-  </div>
-
-  <div class="day"><div class="day-h">Friday <span class="day-dt">Oct 27</span><span class="day-cost">&#2547;495</span></div>
-    <div class="sl"><span class="sl-ico">🌅</span><div class="sl-body"><div class="sl-lbl">Breakfast</div><div class="sl-name">Haleem</div><div class="sl-bn">হালিম</div></div><div class="sl-pr">&#2547;120</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap">Swap</span></div>
-    <div class="sl"><span class="sl-ico">☀️</span><div class="sl-body"><div class="sl-lbl">Lunch</div><div class="sl-name">Mutton Rezala</div><div class="sl-bn">মাটন রেজালা</div></div><div class="sl-pr">&#2547;290</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap">Swap</span></div>
-    <div class="sl"><span class="sl-ico">🌙</span><div class="sl-body"><div class="sl-lbl">Dinner</div><div class="sl-name">Veg Khichuri</div><div class="sl-bn">সবজি খিচুড়ি</div></div><div class="sl-pr">&#2547;85</div><button class="sl-lock" onclick="event.stopPropagation();togLk(this)">🔓</button><span class="sl-swap">Swap</span></div>
-  </div>
+  <div id="plan-days"></div>
 
   <div style="padding:14px 16px;display:flex;gap:8px">
-    <button class="btn btn-out" style="flex:1;font-size:12px">🔁 Repeat Last Week</button>
+    <button class="btn btn-out" style="flex:1;font-size:12px" onclick="generatePlan()">🔄 Regenerate</button>
     <button class="btn btn-brand" onclick="go('s-list')" style="flex:2">Shopping List →</button>
   </div>
-  <div class="bnav"><button class="on"><span class="ni">📅</span>Plan</button><button onclick="go('s-list')"><span class="ni">📋</span>List</button><button onclick="go('s-recipes')"><span class="ni">📖</span>Recipes</button><button onclick="go('s-profile')"><span class="ni">👤</span>Profile</button></div>
+
+  <div class="bnav">
+    <button class="on"><span class="ni">📅</span>Plan</button>
+    <button onclick="go('s-list')"><span class="ni">📋</span>List</button>
+    <button onclick="go('s-recipes')"><span class="ni">📖</span>Recipes</button>
+    <button onclick="go('s-profile')"><span class="ni">👤</span>Profile</button>
+  </div>
 </div>
 
-<!-- ══ RECIPES ══ -->
+<!-- ══ 4. SHOPPING LIST (fully calculated from plan) ══ -->
+<div id="s-list" class="scr">
+  <div class="hdr"><button class="hdr-back" onclick="go('s-plan')" aria-label="Back">‹</button><h1>Shopping List</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
+
+  <div class="search"><span class="search-ico">🔍</span><input placeholder="Search items..." id="list-search" oninput="filterShoppingList()" aria-label="Search shopping list"></div>
+
+  <div class="ls-sum">
+    <div class="ls-s"><div class="v" id="ls-items">0</div><div class="l">Items</div></div>
+    <div class="ls-s"><div class="v" style="color:var(--ok)" id="ls-total">৳0</div><div class="l">You pay</div></div>
+    <div class="ls-s"><div class="v" style="color:var(--ok)" id="ls-under">৳0</div><div class="l">Under budget</div></div>
+  </div>
+
+  <div id="list-items"></div>
+
+  <div class="lst-tot">
+    <div class="tr"><span class="k">Pack costs (<span id="tot-items">0</span> items)</span><span class="v" id="tot-sub">৳0</span></div>
+    <div class="tr"><span class="k">Pantry (already have)</span><span class="v" style="color:var(--t3)" id="tot-pantry">−৳0</span></div>
+    <div class="tr big"><span class="k">You pay</span><span class="v g" id="tot-total">৳0</span></div>
+    <div class="tr"><span class="k">Budget remaining</span><span class="v g" id="tot-remain">৳0</span></div>
+  </div>
+
+  <div style="height:80px"></div>
+  <div class="cart-fl"><button class="btn btn-brand" onclick="addToCart()" style="font-size:16px">🛒 Add All to Cart · <span id="cart-btn-price">৳0</span></button></div>
+
+  <div class="bnav">
+    <button onclick="go('s-plan')"><span class="ni">📅</span>Plan</button>
+    <button class="on"><span class="ni">📋</span>List</button>
+    <button onclick="go('s-recipes')"><span class="ni">📖</span>Recipes</button>
+    <button onclick="go('s-profile')"><span class="ni">👤</span>Profile</button>
+  </div>
+</div>
+
+<!-- ══ 5. CHECKOUT (account creation here, not upfront) ══ -->
+<div id="s-checkout" class="scr">
+  <div class="hdr"><h1>Checkout</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
+  <div class="success">
+    <div class="success-ico">🛒</div>
+    <h2>Your basket is ready!</h2>
+    <p>Create an account to save your plan and complete checkout.</p>
+  </div>
+  <div style="padding:0 20px">
+    <div class="auth-field"><label class="auth-lbl">Full name</label><input class="auth-inp" value="Fatima Ahmed"></div>
+    <div class="auth-field"><label class="auth-lbl">Phone</label><input class="auth-inp" type="tel" placeholder="01XXXXXXXXX"></div>
+    <div class="auth-field"><label class="auth-lbl">Email</label><input class="auth-inp" type="email" placeholder="you@email.com"></div>
+    <div class="auth-field"><label class="auth-lbl">Password</label><input class="auth-inp" type="password" placeholder="8+ characters"></div>
+    <button class="btn btn-brand mt-8" onclick="toast('Account created! Redirecting to checkout...');setTimeout(()=>go('s-done'),1500)">Create Account & Checkout</button>
+    <div class="auth-div">or</div>
+    <div class="auth-social">
+      <button onclick="toast('Signed in!');setTimeout(()=>go('s-done'),1000)">📱 Phone OTP</button>
+      <button onclick="toast('Signed in!');setTimeout(()=>go('s-done'),1000)"><b>G</b> Google</button>
+    </div>
+    <div class="auth-foot mt-16">By signing up you agree to our <a href="#">Terms</a> & <a href="#">Privacy</a></div>
+  </div>
+</div>
+
+<!-- ══ 6. DONE ══ -->
+<div id="s-done" class="scr" style="padding-bottom:0">
+  <div class="status-bar dark"><span class="sb-time">9:41</span><span class="sb-icons">📶 🔋</span></div>
+  <div class="win">
+    <div class="win-ico">✅</div>
+    <h2>Order sent to store!</h2>
+    <p>Your items have been added to your online cart. Complete checkout for delivery.</p>
+    <div class="win-cta mt-20"><button class="btn btn-brand">Complete Checkout →</button></div>
+    <button class="btn btn-ghost mt-8" onclick="go('s-plan')">← Back to Plan</button>
+  </div>
+</div>
+
+<!-- ══ 7. RECIPES ══ -->
 <div id="s-recipes" class="scr">
   <div class="hdr"><h1>Recipes</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
-  <div class="search"><span class="search-ico">🔍</span><input placeholder="Search 30+ dishes..." id="r-q" oninput="filtR()"></div>
-  <div class="pills" id="r-pills"><button class="pill on" onclick="filtC(this,'all')">All</button><button class="pill" onclick="filtC(this,'breakfast')">Breakfast</button><button class="pill" onclick="filtC(this,'lunch')">Lunch</button><button class="pill" onclick="filtC(this,'dinner')">Dinner</button><button class="pill" onclick="filtC(this,'fish')">Fish</button><button class="pill" onclick="filtC(this,'chicken')">Chicken</button><button class="pill" onclick="filtC(this,'veg')">Vegetarian</button><button class="pill" onclick="filtC(this,'quick')">Quick</button></div>
+  <div class="search"><span class="search-ico">🔍</span><input placeholder="Search dishes..." id="r-q" oninput="renderRecipeGrid(this.value)" aria-label="Search recipes"></div>
+  <div class="pills" id="r-pills">
+    <button class="pill on" onclick="filterRecipeCat(this,'all')">All</button>
+    <button class="pill" onclick="filterRecipeCat(this,'breakfast')">Breakfast</button>
+    <button class="pill" onclick="filterRecipeCat(this,'lunch')">Lunch</button>
+    <button class="pill" onclick="filterRecipeCat(this,'dinner')">Dinner</button>
+    <button class="pill" onclick="filterRecipeCat(this,'fish')">Fish</button>
+    <button class="pill" onclick="filterRecipeCat(this,'chicken')">Chicken</button>
+    <button class="pill" onclick="filterRecipeCat(this,'veg')">Vegetarian</button>
+    <button class="pill" onclick="filterRecipeCat(this,'quick')">Quick</button>
+  </div>
   <div class="r-grid mt-12" id="r-grid"></div>
-  <div class="bnav"><button onclick="go('s-filled')"><span class="ni">📅</span>Plan</button><button onclick="go('s-list')"><span class="ni">📋</span>List</button><button class="on"><span class="ni">📖</span>Recipes</button><button onclick="go('s-profile')"><span class="ni">👤</span>Profile</button></div>
+  <div class="bnav">
+    <button onclick="go('s-plan')"><span class="ni">📅</span>Plan</button>
+    <button onclick="go('s-list')"><span class="ni">📋</span>List</button>
+    <button class="on"><span class="ni">📖</span>Recipes</button>
+    <button onclick="go('s-profile')"><span class="ni">👤</span>Profile</button>
+  </div>
 </div>
 
-<!-- ══ RECIPE DETAIL ══ -->
-<div id="s-rd" class="scr">
-  <div class="hdr"><button class="hdr-back" onclick="go('s-recipes')">‹</button><h1 id="rd-h">Recipe</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
+<!-- ══ 8. RECIPE DETAIL ══ -->
+<div id="s-detail" class="scr">
+  <div class="hdr"><button class="hdr-back" onclick="go(state.screen==='s-recipes'?'s-recipes':'s-plan')" aria-label="Back">‹</button><h1 id="rd-h">Recipe</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
   <div class="rd-hero g1" id="rd-hero">🍛</div>
   <div class="rd-body">
-    <div class="rd-title" id="rd-t">Chicken Curry & Rice</div>
-    <div class="rd-bn" id="rd-bn">মুরগির তরকারি</div>
+    <div class="rd-title" id="rd-title">Recipe</div>
+    <div class="rd-bn" id="rd-bn"></div>
     <div class="rd-stats">
       <div class="rd-stat"><div class="v" id="rd-time">30</div><div class="l">min</div></div>
       <div class="rd-stat"><div class="v" id="rd-diff">Easy</div><div class="l">difficulty</div></div>
-      <div class="rd-stat"><div class="v" id="rd-cost">&#2547;180</div><div class="l">cost</div></div>
+      <div class="rd-stat"><div class="v" id="rd-cost">৳0</div><div class="l">total cost</div></div>
     </div>
-    <!-- Serving toggle -->
     <div class="rd-sec">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <h3>Ingredients</h3>
-        <div class="srv-toggle"><button onclick="adjSrv(-1)">−</button><span class="srv-v" id="srv-v">4</span><button onclick="adjSrv(1)">+</button><span style="font-size:12px;color:var(--t3);margin-left:2px">servings</span></div>
+        <div class="srv-toggle">
+          <button onclick="adjSrv(-1)" aria-label="Decrease servings">−</button>
+          <span class="srv-v" id="srv-v">4</span>
+          <button onclick="adjSrv(1)" aria-label="Increase servings">+</button>
+          <span style="font-size:12px;color:var(--t3);margin-left:2px">servings</span>
+        </div>
       </div>
-      <div class="rd-ing mt-8">
-        <div class="rd-ing-row"><span class="rd-ing-name">Chicken</span><span class="rd-ing-qty">500g</span></div>
-        <div class="rd-ing-row"><span class="rd-ing-name">Onion</span><span class="rd-ing-qty">200g</span></div>
-        <div class="rd-ing-row"><span class="rd-ing-name">Tomato</span><span class="rd-ing-qty">150g</span></div>
-        <div class="rd-ing-row"><span class="rd-ing-name">Garlic</span><span class="rd-ing-qty">4 cloves</span></div>
-        <div class="rd-ing-row"><span class="rd-ing-name">Ginger</span><span class="rd-ing-qty">1 inch</span></div>
-        <div class="rd-ing-row"><span class="rd-ing-name">Turmeric</span><span class="rd-ing-qty">1 tsp</span></div>
-        <div class="rd-ing-row"><span class="rd-ing-name">Chilli powder</span><span class="rd-ing-qty">1 tsp</span></div>
-        <div class="rd-ing-row"><span class="rd-ing-name">Oil</span><span class="rd-ing-qty">3 tbsp</span></div>
-        <div class="rd-ing-row"><span class="rd-ing-name">Rice</span><span class="rd-ing-qty">400g</span></div>
+      <div class="rd-ing mt-8" id="rd-ings"></div>
+    </div>
+    <div class="rd-sec">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <h3 style="margin:0">Steps</h3>
+        <button class="btn btn-brand btn-sm" onclick="startCooking()" aria-label="Start cooking mode">🍳 Cook</button>
       </div>
+      <div id="rd-steps"></div>
     </div>
-    <div class="rd-sec"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h3 style="margin:0">Steps</h3><button class="btn btn-brand btn-sm" onclick="go('s-cook')">🍳 Cook</button></div>
-      <div class="rd-step" onclick="this.classList.toggle('done')"><div class="rd-step-n">1</div><div class="rd-step-txt">Marinate chicken with turmeric, chilli, salt and yogurt. 15 min.</div></div>
-      <div class="rd-step" onclick="this.classList.toggle('done')"><div class="rd-step-n">2</div><div class="rd-step-txt">Heat oil. Fry onions until golden. 5 min.</div></div>
-      <div class="rd-step" onclick="this.classList.toggle('done')"><div class="rd-step-n">3</div><div class="rd-step-txt">Add garlic-ginger paste. 1 min.</div></div>
-      <div class="rd-step" onclick="this.classList.toggle('done')"><div class="rd-step-n">4</div><div class="rd-step-txt">Add tomatoes. Cook until oil separates.</div></div>
-      <div class="rd-step" onclick="this.classList.toggle('done')"><div class="rd-step-n">5</div><div class="rd-step-txt">Add chicken. Sear on high 5 min.</div></div>
-      <div class="rd-step" onclick="this.classList.toggle('done')"><div class="rd-step-n">6</div><div class="rd-step-txt">Add water. Simmer 20 min covered.</div></div>
-      <div class="rd-step" onclick="this.classList.toggle('done')"><div class="rd-step-n">7</div><div class="rd-step-txt">Serve with steamed rice and lime.</div></div>
-    </div>
-    <div class="mt-16"><button class="btn btn-ok" onclick="toast('Added to Saturday lunch!');go('s-filled')">+ Add to Plan</button></div>
+    <div class="mt-16"><button class="btn btn-ok" onclick="addToPlan()">+ Add to Plan</button></div>
   </div>
 </div>
 
-<!-- ══ COOKING MODE ══ -->
+<!-- ══ 9. COOKING MODE ══ -->
 <div id="s-cook" class="scr" style="padding-bottom:20px">
-  <div class="cook-top"><h2>Chicken Curry</h2><p>Step <span id="ck-c">1</span> of 7</p></div>
-  <div class="cook-prog" id="ck-p"><div class="cook-dot cur"></div><div class="cook-dot"></div><div class="cook-dot"></div><div class="cook-dot"></div><div class="cook-dot"></div><div class="cook-dot"></div><div class="cook-dot"></div></div>
-  <div class="cook-timer" id="ck-t">15:00</div>
-  <div class="cook-timer-lbl" id="ck-tl">Marination</div>
-  <div class="cook-card"><div class="cook-sn" id="ck-sn">Step 1</div><div class="cook-st" id="ck-st">Marinate chicken with turmeric, chilli, salt and yogurt for 15 min.</div><div class="cook-ings" id="ck-ig"><div class="cook-ings-t">Ingredients</div><div class="cook-ig"><span>Chicken</span><span>500g</span></div><div class="cook-ig"><span>Turmeric</span><span>1 tsp</span></div></div></div>
-  <div class="cook-nav"><button class="btn btn-out" id="ck-prev" onclick="ckStep(-1)">Previous</button><button class="btn btn-brand" id="ck-next" onclick="ckStep(1)">Next Step</button></div>
-  <div style="text-align:center;margin-top:6px"><button class="btn btn-ghost" onclick="go('s-rd')">← Exit</button></div>
+  <div class="cook-top"><h2 id="ck-name">Cooking</h2><p id="ck-cur">Step 1 of 7</p></div>
+  <div class="cook-prog" id="ck-prog"></div>
+  <div class="cook-card">
+    <div class="cook-sn" id="ck-step-n">Step 1</div>
+    <div class="cook-st" id="ck-txt">...</div>
+    <div class="cook-ings" id="ck-ings"></div>
+  </div>
+  <div class="cook-nav">
+    <button class="btn btn-out" id="ck-prev" onclick="ckNav(-1)" aria-label="Previous step">Previous</button>
+    <button class="btn btn-brand" id="ck-next" onclick="ckNav(1)" aria-label="Next step">Next Step</button>
+  </div>
+  <div style="text-align:center;margin-top:6px"><button class="btn btn-ghost" onclick="go('s-detail')">← Exit Cooking</button></div>
 </div>
 
-<!-- ══ SHOPPING LIST ══ -->
-<div id="s-list" class="scr">
-  <div class="hdr"><button class="hdr-back" onclick="go('s-filled')">‹</button><h1>Shopping List</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
-  <div class="search"><span class="search-ico">🔍</span><input placeholder="Search items..." id="list-search" oninput="filterList()"></div>
-  <div class="ls-sum">
-    <div class="ls-s"><div class="v">42</div><div class="l">Items</div></div>
-    <div class="ls-s"><div class="v" style="color:var(--ok)">&#2547;2,840</div><div class="l">Total</div></div>
-    <div class="ls-s"><div class="v" style="color:var(--ok)">&#2547;160</div><div class="l">Under budget</div></div>
-  </div>
-
-  <div class="cat"><div class="cat-h"><span style="font-size:16px">🥩</span> Protein & Fish</div>
-    <div class="li" onclick="togLi(this)"><div class="li-chk"></div><div class="li-info"><div class="li-n">Chicken (Whole)</div><div class="li-prod"><b>Kazi Farms</b> · 1.2 kg</div><div class="li-src">For: Chicken Curry, Biryani</div><div class="li-fresh now">🟠 Buy day-of (fresh)</div><div class="li-switch" onclick="event.stopPropagation();openProd()">Switch brand →</div></div><div class="li-rt"><div class="li-qty">1.2 kg</div><div class="li-pr">&#2547;340</div></div></div>
-    <div class="li" onclick="togLi(this)"><div class="li-chk"></div><div class="li-info"><div class="li-n">Hilsha Fish</div><div class="li-prod"><b>Fresh</b> · 800g</div><div class="li-src">For: Hilsha Fish Curry</div><div class="li-fresh now">🟠 Buy day-of (fresh)</div><div class="li-switch" onclick="event.stopPropagation();openProd()">Switch brand →</div></div><div class="li-rt"><div class="li-qty">800 g</div><div class="li-pr">&#2547;520</div></div></div>
-    <div class="li" onclick="togLi(this)"><div class="li-chk"></div><div class="li-info"><div class="li-n">Prawn (Chingri)</div><div class="li-prod"><b>Fresh</b> · 500g</div><div class="li-src">For: Prawn Malai Curry</div><div class="li-fresh now">🟠 Buy day-of</div></div><div class="li-rt"><div class="li-qty">500 g</div><div class="li-pr">&#2547;380</div></div></div>
-    <div class="li" onclick="togLi(this)"><div class="li-chk"></div><div class="li-info"><div class="li-n">Mutton</div><div class="li-prod"><b>Fresh</b> · 500g</div><div class="li-src">For: Mutton Rezala</div></div><div class="li-rt"><div class="li-qty">500 g</div><div class="li-pr">&#2547;450</div></div></div>
-    <div class="li" onclick="togLi(this)"><div class="li-chk"></div><div class="li-info"><div class="li-n">Eggs</div><div class="li-prod"><b>Kazi Farms</b> · 12 pcs</div><div class="li-src">For: Egg Curry, Khichuri, Bhaji</div><div class="li-fresh ahead">🟢 Buy ahead (7 days)</div></div><div class="li-rt"><div class="li-qty">1 hali</div><div class="li-pr">&#2547;144</div></div></div>
-  </div>
-
-  <div class="cat"><div class="cat-h"><span style="font-size:16px">🥬</span> Vegetables</div>
-    <div class="li" onclick="togLi(this)"><div class="li-chk"></div><div class="li-info"><div class="li-n">Potato (Alu)</div><div class="li-prod"><b>Local</b> · 2 kg</div><div class="li-src">For: Alur Dom, Aloo Bhaji</div><div class="li-fresh ahead">🟢 Buy ahead</div></div><div class="li-rt"><div class="li-qty">2 kg</div><div class="li-pr">&#2547;80</div></div></div>
-    <div class="li" onclick="togLi(this)"><div class="li-chk"></div><div class="li-info"><div class="li-n">Onion</div><div class="li-prod"><b>Local</b> · 1.5 kg</div><div class="li-src">For: 6 recipes</div><div class="li-fresh ahead">🟢 Buy ahead</div></div><div class="li-rt"><div class="li-qty">1.5 kg</div><div class="li-pr">&#2547;90</div></div></div>
-    <div class="li" onclick="togLi(this)"><div class="li-chk"></div><div class="li-info"><div class="li-n">Tomato</div><div class="li-prod"><b>Local</b> · 1 kg</div><div class="li-src">For: Chicken Curry, Fish Curry</div></div><div class="li-rt"><div class="li-qty">1 kg</div><div class="li-pr">&#2547;80</div></div></div>
-    <div class="li" onclick="togLi(this)"><div class="li-chk"></div><div class="li-info"><div class="li-n">Eggplant</div><div class="li-prod"><b>Local</b> · 500g</div><div class="li-src">For: Begun Bharta</div></div><div class="li-rt"><div class="li-qty">500 g</div><div class="li-pr">&#2547;40</div></div></div>
-  </div>
-
-  <div class="cat"><div class="cat-h"><span style="font-size:16px">🌾</span> Grains</div>
-    <div class="li" onclick="togLi(this)"><div class="li-chk"></div><div class="li-info"><div class="li-n">Miniket Rice</div><div class="li-prod"><b>Pran</b> · 5 kg</div><div class="li-src">For: 12 recipes</div><div class="li-fresh ahead">🟢 Buy ahead</div><div class="li-switch" onclick="event.stopPropagation();openProd()">Switch brand →</div></div><div class="li-rt"><div class="li-qty">5 kg</div><div class="li-pr">&#2547;390</div></div></div>
-    <div class="li" onclick="togLi(this)"><div class="li-chk"></div><div class="li-info"><div class="li-n">Flour (Atta)</div><div class="li-prod"><b>Teer</b> · 2 kg</div><div class="li-src">For: Paratha, Roti</div></div><div class="li-rt"><div class="li-qty">2 kg</div><div class="li-pr">&#2547;110</div></div></div>
-    <div class="li" onclick="togLi(this)"><div class="li-chk"></div><div class="li-info"><div class="li-n">Moong Dal</div><div class="li-prod"><b>Pran</b> · 1 kg</div></div><div class="li-rt"><div class="li-qty">1 kg</div><div class="li-pr">&#2547;160</div></div></div>
-  </div>
-
-  <div class="cat"><div class="cat-h"><span style="font-size:16px">🫙</span> Pantry <span class="badge b-warn" style="margin-left:4px">You may have</span></div>
-    <div class="li staple done" onclick="togLi(this)"><div class="li-chk on">✓</div><div class="li-info"><div class="li-n" style="text-decoration:line-through">Soybean Oil</div><div class="li-prod"><b>Teer</b> · 1L</div><div class="li-tag warn">Pantry staple</div></div><div class="li-rt"><div class="li-qty">1 L</div><div class="li-pr">&#2547;175</div></div></div>
-    <div class="li staple done" onclick="togLi(this)"><div class="li-chk on">✓</div><div class="li-info"><div class="li-n" style="text-decoration:line-through">Salt</div><div class="li-prod"><b>ACI</b> · 1 kg</div><div class="li-tag warn">Pantry staple</div></div><div class="li-rt"><div class="li-qty">1 kg</div><div class="li-pr">&#2547;30</div></div></div>
-    <div class="li staple done" onclick="togLi(this)"><div class="li-chk on">✓</div><div class="li-info"><div class="li-n" style="text-decoration:line-through">Turmeric</div><div class="li-prod"><b>Radhuni</b> · 100g</div><div class="li-tag warn">Pantry staple</div></div><div class="li-rt"><div class="li-qty">100 g</div><div class="li-pr">&#2547;40</div></div></div>
-  </div>
-
-  <div class="cat"><div class="cat-h"><span style="font-size:16px">🔄</span> Swapped</div>
-    <div class="li swapped" onclick="togLi(this)"><div class="li-chk"></div><div class="li-info"><div class="li-n">Coconut Milk (can)</div><div class="li-prod"><b>Kara</b> · 400ml</div><div class="li-tag brand">Replaces fresh coconut (out of stock)</div></div><div class="li-rt"><div class="li-qty">1 can</div><div class="li-pr">&#2547;190</div></div></div>
-  </div>
-
-  <div class="lst-tot">
-    <div class="tr"><span class="k">Subtotal (42 items)</span><span class="v">&#2547;3,095</span></div>
-    <div class="tr"><span class="k">Pantry staples</span><span class="v" style="color:var(--t3)">−&#2547;255</span></div>
-    <div class="tr big"><span class="k">Your total</span><span class="v g">&#2547;2,840</span></div>
-    <div class="tr"><span class="k">Budget left</span><span class="v g">&#2547;160</span></div>
-  </div>
-  <div style="height:80px"></div>
-  <div class="cart-fl"><button class="btn btn-brand" onclick="addCart()" style="font-size:16px">🛒 Add All to Cart · &#2547;2,840</button></div>
-  <div class="bnav"><button onclick="go('s-filled')"><span class="ni">📅</span>Plan</button><button class="on"><span class="ni">📋</span>List</button><button onclick="go('s-recipes')"><span class="ni">📖</span>Recipes</button><button onclick="go('s-profile')"><span class="ni">👤</span>Profile</button></div>
-</div>
-
-<!-- ══ CART SUCCESS ══ -->
-<div id="s-cart" class="scr">
-  <div class="hdr"><h1>Confirmed</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
-  <div class="success">
-    <div class="success-ico">✅</div><h2>Added to Cart!</h2><p>42 items added. Complete checkout to get delivery.</p>
-    <div class="s-sts"><div class="s-st"><div class="v">42</div><div class="l">Items</div></div><div class="s-st"><div class="v">&#2547;2,840</div><div class="l">Total</div></div></div>
-    <div class="s-sts"><div class="s-st"><div class="v" style="color:var(--ok)">&#2547;160</div><div class="l">Under budget</div></div><div class="s-st"><div class="v" style="color:var(--ok)">2:47</div><div class="l">Minutes</div></div></div>
-    <button class="btn btn-brand mt-24">Complete Checkout →</button>
-    <button class="btn btn-out mt-12" onclick="go('s-dash')">Retailer Dashboard</button>
-    <button class="btn btn-ghost mt-8" onclick="go('s-filled')">← Back to Plan</button>
-  </div>
-</div>
-
-<!-- ══ PROFILE ══ -->
+<!-- ══ 10. PROFILE ══ -->
 <div id="s-profile" class="scr">
   <div class="hdr"><h1>Profile</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
   <div class="prof-card"><div class="prof-av">FA</div><div class="prof-name">Fatima Ahmed</div><div class="prof-email">fatima@example.com</div></div>
   <div class="prof-sec">Household</div>
-  <div class="prof-card"><div class="prof-row"><span class="k">Size</span><span class="v">4 people</span></div><div class="prof-row"><span class="k">Budget</span><span class="v" style="color:var(--brand)">&#2547;3,000/wk</span></div><div class="prof-row"><span class="k">Diet</span><span class="v">No beef</span></div></div>
-  <div class="prof-sec">Plan</div>
-  <div class="prof-card"><div class="prof-row"><span class="k">Tier</span><span class="badge b-ok">Free</span></div><div class="prof-row"><span class="k">AI uses</span><span class="v">2/3 this week</span></div><div style="padding-top:10px"><button class="btn btn-brand btn-sm" style="width:100%">Upgrade Pro — &#2547;199/mo</button></div></div>
-  <div class="prof-sec">Actions</div>
-  <div class="prof-menu"><div class="prof-mi" onclick="go('s-filled')"><span>📅</span> This Week's Plan</div><div class="prof-mi" onclick="go('s-list')"><span>📋</span> Shopping List</div><div class="prof-mi" onclick="go('s-recipes')"><span>📖</span> Recipes</div><div class="prof-mi"><span>📊</span> History</div></div>
-  <div class="prof-sec">About</div>
-  <div class="prof-menu"><div class="prof-mi"><span>💬</span> Support</div><div class="prof-mi"><span>🔒</span> Privacy</div><div class="prof-mi" style="color:var(--brand)"><span>🚪</span> Sign Out</div></div>
-  <div style="padding:16px;text-align:center;font-size:11px;color:var(--t3)">Smart Basket v0.1 · Cookspace</div>
-  <div class="bnav"><button onclick="go('s-filled')"><span class="ni">📅</span>Plan</button><button onclick="go('s-list')"><span class="ni">📋</span>List</button><button onclick="go('s-recipes')"><span class="ni">📖</span>Recipes</button><button class="on"><span class="ni">👤</span>Profile</button></div>
-</div>
-
-<!-- ══ DASHBOARD ══ -->
-<div id="s-dash" class="scr">
-  <div class="hdr" style="background:linear-gradient(145deg,#111827,#1F2937)"><h1>Dashboard</h1><div class="hdr-logo"><div class="hdr-dot"></div> RETAILER</div></div>
-  <div class="d-per">Meal Planner · Last 30 days</div>
-  <div class="d-grid">
-    <div class="d-c"><div class="v">1,247</div><div class="l">Plans</div><div class="t">↑ 34%</div></div>
-    <div class="d-c"><div class="v">68%</div><div class="l">Conversion</div><div class="t">↑ 12%</div></div>
-    <div class="d-c"><div class="v">38</div><div class="l">Items/basket</div><div class="t">↑ 52%</div></div>
-    <div class="d-c"><div class="v">72%</div><div class="l">Repeat rate</div><div class="t">↑ 40%</div></div>
+  <div class="prof-card">
+    <div class="prof-row"><span class="k">Size</span><span class="v">4 people</span></div>
+    <div class="prof-row"><span class="k">Budget</span><span class="v" style="color:var(--brand)">৳3,000/wk</span></div>
+    <div class="prof-row"><span class="k">Exclusions</span><span class="v">No beef</span></div>
   </div>
-  <div class="d-sec"><h3>Basket Comparison</h3><div class="d-chart"><div class="legend"><span><span class="dot" style="background:#ccc"></span>Regular</span><span><span class="dot" style="background:var(--brand)"></span>Planner</span></div><div class="ch-bars"><div class="ch-g"><div class="ch-b reg" style="height:40px"></div><div class="ch-b plan" style="height:90px"></div><div class="ch-bl">W1</div></div><div class="ch-g"><div class="ch-b reg" style="height:36px"></div><div class="ch-b plan" style="height:96px"></div><div class="ch-bl">W2</div></div><div class="ch-g"><div class="ch-b reg" style="height:44px"></div><div class="ch-b plan" style="height:105px"></div><div class="ch-bl">W3</div></div><div class="ch-g"><div class="ch-b reg" style="height:38px"></div><div class="ch-b plan" style="height:112px"></div><div class="ch-bl">W4</div></div></div></div></div>
-  <div class="d-sec"><h3>Top Dishes</h3><table class="d-tbl"><thead><tr><th>Dish</th><th>Plans</th><th>Rev</th></tr></thead><tbody><tr><td>Chicken Curry</td><td>342</td><td>&#2547;62K</td></tr><tr><td>Hilsha Curry</td><td>218</td><td>&#2547;70K</td></tr><tr><td>Prawn Malai</td><td>195</td><td>&#2547;47K</td></tr><tr><td>Biryani</td><td>187</td><td>&#2547;39K</td></tr></tbody></table></div>
-  <div class="d-sec"><h3>Top Products</h3><table class="d-tbl"><thead><tr><th>Product</th><th>Brand</th><th>Units</th></tr></thead><tbody><tr><td>Rice 5kg</td><td>Pran</td><td>892</td></tr><tr><td>Eggs 12pc</td><td>Kazi</td><td>756</td></tr><tr><td>Oil 1L</td><td>Teer</td><td>634</td></tr></tbody></table></div>
-  <div class="d-sec" style="margin-bottom:20px"><h3>Swap Rate</h3><div style="background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--sh)"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;font-weight:600">Swaps before checkout</span><span class="badge b-ok">14%</span></div><div style="font-size:12px;color:var(--t2);margin-top:4px">Below 20% target — accurate lists</div></div></div>
-  <div style="padding:0 16px 100px"><button class="btn btn-out" onclick="go('s-splash')">← Restart Demo</button></div>
+  <div class="prof-sec">Actions</div>
+  <div class="prof-menu">
+    <div class="prof-mi" onclick="go('s-plan')"><span>📅</span> This Week's Plan</div>
+    <div class="prof-mi" onclick="go('s-list')"><span>📋</span> Shopping List</div>
+    <div class="prof-mi" onclick="go('s-recipes')"><span>📖</span> Browse Recipes</div>
+    <div class="prof-mi" onclick="go('s-setup')"><span>⚙️</span> Edit Preferences</div>
+  </div>
+  <div style="padding:16px;text-align:center;font-size:11px;color:var(--t3)">Smart Basket v0.2 · Cookspace</div>
+  <div class="bnav">
+    <button onclick="go('s-plan')"><span class="ni">📅</span>Plan</button>
+    <button onclick="go('s-list')"><span class="ni">📋</span>List</button>
+    <button onclick="go('s-recipes')"><span class="ni">📖</span>Recipes</button>
+    <button class="on"><span class="ni">👤</span>Profile</button>
+  </div>
 </div>
 
 <!-- ══ MODALS ══ -->
+<div class="mbg" id="m-swap" onclick="closeModal('m-swap')"><div class="mdl" id="swap-content" onclick="event.stopPropagation()"></div></div>
+<div class="mbg" id="m-pick" onclick="closeModal('m-pick')"><div class="mdl" id="pick-content" onclick="event.stopPropagation()"></div></div>
 
-<div class="mbg" id="m-swap" onclick="closeM(this,event)"><div class="mdl" onclick="event.stopPropagation()"><div class="mdl-bar"></div><h3>Swap Wednesday Lunch</h3><div class="sub">Current: Chicken Biryani (&#2547;210)</div>
-  <div class="sw-opt" onclick="doSwap('Rui Fish Jhol','রুই মাছের ঝোল',150)"><div><div class="sw-nm">Rui Fish Jhol</div><div class="sw-bn">রুই মাছের ঝোল</div></div><div style="text-align:right"><div class="sw-pr">&#2547;150</div><div class="sw-tg">Save &#2547;60</div></div></div>
-  <div class="sw-opt" onclick="doSwap('Tilapia Fry','তেলাপিয়া ফ্রাই',130)"><div><div class="sw-nm">Tilapia Fry</div><div class="sw-bn">তেলাপিয়া ফ্রাই</div></div><div style="text-align:right"><div class="sw-pr">&#2547;130</div><div class="sw-tg">Save &#2547;80</div></div></div>
-  <div class="sw-opt" onclick="doSwap('Egg Biryani','ডিমের বিরিয়ানি',120)"><div><div class="sw-nm">Egg Biryani</div><div class="sw-bn">ডিমের বিরিয়ানি</div></div><div style="text-align:right"><div class="sw-pr">&#2547;120</div><div class="sw-tg">Save &#2547;90 · Budget pick</div></div></div>
-  <button class="btn btn-ghost mt-12" onclick="closeM(document.getElementById('m-swap'))">Cancel</button>
-</div></div>
-
-<div class="mbg" id="m-pick" onclick="closeM(this,event)"><div class="mdl" onclick="event.stopPropagation()"><div class="mdl-bar"></div><h3>Add a Dish</h3><div class="sub">Pick or search.</div>
-  <div class="search" style="margin:0 0 10px"><span class="search-ico">🔍</span><input placeholder="Search..."></div>
-  <div class="pick-r" onclick="pickDish()"><span class="pick-ico">🍳</span><div><div class="pick-nm">Paratha & Egg</div><div class="pick-mt">15m · Easy</div></div><div class="pick-pr">&#2547;85</div></div>
-  <div class="pick-r" onclick="pickDish()"><span class="pick-ico">🍲</span><div><div class="pick-nm">Chicken Curry</div><div class="pick-mt">30m · Easy</div></div><div class="pick-pr">&#2547;180</div></div>
-  <div class="pick-r" onclick="pickDish()"><span class="pick-ico">🐟</span><div><div class="pick-nm">Hilsha Curry</div><div class="pick-mt">40m · Medium</div></div><div class="pick-pr">&#2547;320</div></div>
-  <div class="pick-r" onclick="pickDish()"><span class="pick-ico">🥘</span><div><div class="pick-nm">Khichuri & Egg</div><div class="pick-mt">25m · Easy</div></div><div class="pick-pr">&#2547;90</div></div>
-  <button class="btn btn-ghost mt-8" onclick="closeM(document.getElementById('m-pick'))">Cancel</button>
-</div></div>
-
-<div class="mbg" id="m-prod" onclick="closeM(this,event)"><div class="mdl" onclick="event.stopPropagation()"><div class="mdl-bar"></div><h3>Switch Product</h3><div class="sub">Choose a different brand or pack.</div>
-  <div class="prod-opt cur"><div><div class="p-brand">Kazi Farms — 1.2 kg</div><div class="p-desc">Whole chicken, chilled</div><div class="p-badge" style="color:var(--ok)">Selected</div></div><div class="p-price">&#2547;340</div></div>
-  <div class="prod-opt" onclick="switchProd()"><div><div class="p-brand">Aftab — 1 kg</div><div class="p-desc">Frozen, cheaper</div><div class="p-badge" style="color:var(--info)">Save &#2547;60</div></div><div class="p-price">&#2547;280</div></div>
-  <div class="prod-opt" onclick="switchProd()"><div><div class="p-brand">CP — 1.5 kg</div><div class="p-desc">Chilled, extra</div><div class="p-badge" style="color:var(--t3)">Larger</div></div><div class="p-price">&#2547;420</div></div>
-  <button class="btn btn-ghost mt-8" onclick="closeM(document.getElementById('m-prod'))">Cancel</button>
-</div></div>
-
-<div class="mbg" id="m-over" onclick="closeM(this,event)"><div class="mdl" onclick="event.stopPropagation()"><div class="mdl-bar"></div><h3 style="color:var(--brand)">Over Budget by &#2547;280</h3><div class="sub">Suggested swaps to get back under &#2547;3,000:</div>
-  <div class="over-item"><div><div class="from">Hilsha — &#2547;320</div><div class="to">Rui Fish — &#2547;160</div></div><div class="save">−&#2547;160</div></div>
-  <div class="over-item"><div><div class="from">Mutton — &#2547;290</div><div class="to">Chicken — &#2547;180</div></div><div class="save">−&#2547;110</div></div>
-  <div style="margin-top:12px;padding:12px 14px;background:var(--ok-lt);border-radius:var(--r);font-size:14px;color:var(--ok);font-weight:600">Apply top 2 = save &#2547;270</div>
-  <button class="btn btn-ok mt-12" onclick="applyBudgetFix()">Apply Swaps</button>
-  <button class="btn btn-ghost mt-4" onclick="closeM(document.getElementById('m-over'))">Adjust manually</button>
-</div></div>
-
-<div class="mbg" id="m-ai" onclick="closeM(this,event)"><div class="mdl" onclick="event.stopPropagation()"><div class="mdl-bar"></div><h3>✨ Plan Updated</h3><div class="sub">Changes based on your request:</div>
-  <div style="background:var(--border-lt);border-radius:var(--r);padding:14px;margin-bottom:14px;font-size:14px;line-height:1.8">Fri Lunch: Mutton → <b>Hilsha Polao</b><br>Fri Dinner: Veg Khichuri → <b>Firni</b><br>Impact: <span style="color:var(--ok);font-weight:700">+&#2547;40</span></div>
-  <div style="display:flex;gap:8px"><button class="btn btn-ok" style="flex:1" onclick="closeM(document.getElementById('m-ai'));toast('Changes applied!')">Keep</button><button class="btn btn-out" style="flex:1" onclick="closeM(document.getElementById('m-ai'));toast('Changes reverted')">Undo</button></div>
-</div></div>
-
-<!-- Tooltip -->
-<div class="tt-bg" id="tt-ol" onclick="dismissTT()"><div class="tt-box" onclick="event.stopPropagation()"><h4>Your plan is ready!</h4><p>Tap any meal to see the recipe. Swap dishes, lock favourites, or ask AI to change things. Then tap "Shopping List" to see items matched to real products.</p><button class="btn btn-brand" onclick="dismissTT()">Got it!</button></div></div>
-
-<!-- Loading -->
-<div class="ld-bg" id="ld"><div class="ld-spin"></div><div class="ld-txt" id="lt">Planning...</div><div class="ld-sub" id="ls">Finding dishes</div></div>
+<!-- ── Loading ── -->
+<div class="ld-bg" id="ld"><div class="ld-spin"></div><div class="ld-txt" id="ld-t">Loading...</div><div class="ld-sub" id="ld-s"></div></div>
 
 </div>
+
+<script src="data.js"></script>
+<script src="engine.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
