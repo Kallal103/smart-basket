@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Build
+.next/
+dist/
+.expo/
+android/
+ios/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Supabase
+supabase/.temp/
+
+# Expo
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# Turbo
+.turbo
