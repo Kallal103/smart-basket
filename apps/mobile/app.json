@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Smart Basket",
+    "slug": "smart-basket",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "smart-basket",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "bundleIdentifier": "com.cookspace.smartbasket",
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "com.cookspace.smartbasket",
+      "adaptiveIcon": {
+        "backgroundColor": "#2E7D32"
+      }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store"
+    ]
+  }
+}
