@@ -416,15 +416,46 @@ function showLoad(t, s) { $('ld-t').textContent = t; $('ld-s').textContent = s; 
 function hideLoad() { $('ld').classList.remove('on'); }
 
 // ══════════════════════════════════════════════
-// CART / CHECKOUT
+// STORE SELECTION & HANDOFF
 // ══════════════════════════════════════════════
-function addToCart() {
-  showLoad('Adding to cart...', 'Sending items');
+let selectedStore = 'unimart';
+const STORES = {
+  foodpanda: { name: 'Foodpanda', markup: 1.03, delivery: 49 },
+  unimart:   { name: 'Unimart', markup: 1.0, delivery: 0 },
+  shwapno:   { name: 'Shwapno', markup: 1.02, delivery: 39 },
+  meena:     { name: 'Meena Bazar', markup: 1.01, delivery: 59 },
+};
+
+function selectStore(el, storeId) {
+  selectedStore = storeId;
+  // Update borders
+  document.querySelectorAll('#s-store [id^="store-"]').forEach(s => s.style.borderColor = 'transparent');
+  el.style.borderColor = 'var(--brand)';
+  // Update send button
+  const btn = $('send-btn');
+  btn.textContent = 'Send to ' + STORES[storeId].name + ' Cart →';
+  toast(STORES[storeId].name + ' selected');
+}
+
+function sendToStore() {
+  $('handoff-store').textContent = STORES[selectedStore].name;
+  go('s-handoff');
+}
+
+function completeHandoff() {
+  showLoad('Sending basket to ' + STORES[selectedStore].name + '...', 'Adding items to their cart');
   setTimeout(() => {
     hideLoad();
-    go('s-checkout');
-    toast('🛒 Items added to cart!');
-  }, 1500);
+    // Update confirmation screen
+    $('conf-store').textContent = STORES[selectedStore].name;
+    $('conf-store2').textContent = STORES[selectedStore].name;
+    if (state.shoppingList) {
+      $('conf-items').textContent = state.shoppingList.items.length + ' items';
+      $('conf-total').innerHTML = Engine.fmt(state.shoppingList.payable);
+    }
+    go('s-confirmed');
+    toast('✅ Basket sent to ' + STORES[selectedStore].name + '!');
+  }, 2000);
 }
 
 // ══════════════════════════════════════════════

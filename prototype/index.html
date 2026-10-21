@@ -134,7 +134,7 @@
   </div>
 
   <div style="height:80px"></div>
-  <div class="cart-fl"><button class="btn btn-brand" onclick="addToCart()" style="font-size:16px">🛒 Add All to Cart · <span id="cart-btn-price">৳0</span></button></div>
+  <div class="cart-fl"><button class="btn btn-brand" onclick="go('s-store')" style="font-size:16px">🛒 Choose Store & Checkout · <span id="cart-btn-price">৳0</span></button></div>
 
   <div class="bnav">
     <button onclick="go('s-plan')"><span class="ni">📅</span>Plan</button>
@@ -144,140 +144,181 @@
   </div>
 </div>
 
-<!-- ══ 5. CHECKOUT (account creation here, not upfront) ══ -->
-<div id="s-checkout" class="scr">
-  <div class="hdr"><h1>Checkout</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
-  <div class="success">
-    <div class="success-ico">🛒</div>
-    <h2>Your basket is ready!</h2>
-    <p>Create an account to save your plan and complete checkout.</p>
+<!-- ══ 5. STORE SELECTOR + PRICE COMPARISON ══ -->
+<div id="s-store" class="scr">
+  <div class="hdr"><button class="hdr-back" onclick="go('s-list')" aria-label="Back">‹</button><h1>Choose a Store</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
+
+  <div style="padding:14px 16px 8px">
+    <div style="font-size:18px;font-weight:800;letter-spacing:-.02em">Where should we send your basket?</div>
+    <div style="font-size:13px;color:var(--t2);margin-top:2px">We'll add <span id="store-items">24</span> items to their cart. You complete checkout there.</div>
   </div>
-  <div style="padding:0 20px">
-    <div class="auth-field"><label class="auth-lbl">Full name</label><input class="auth-inp" value="Fatima Ahmed"></div>
-    <div class="auth-field"><label class="auth-lbl">Phone</label><input class="auth-inp" type="tel" placeholder="01XXXXXXXXX"></div>
-    <div class="auth-field"><label class="auth-lbl">Email</label><input class="auth-inp" type="email" placeholder="you@email.com"></div>
-    <div class="auth-field"><label class="auth-lbl">Password</label><input class="auth-inp" type="password" placeholder="8+ characters"></div>
-    <button class="btn btn-brand mt-8" onclick="toast('Account created! Redirecting to checkout...');setTimeout(()=>go('s-confirmed'),1500)">Create Account & Checkout</button>
-    <div class="auth-div">or</div>
-    <div class="auth-social">
-      <button onclick="toast('Signed in!');setTimeout(()=>go('s-confirmed'),1000)">📱 Phone OTP</button>
-      <button onclick="toast('Signed in!');setTimeout(()=>go('s-confirmed'),1000)"><b>G</b> Google</button>
+
+  <!-- Store options with price comparison -->
+  <div style="padding:0 16px">
+    <!-- Foodpanda -->
+    <div style="background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--sh);margin-bottom:10px;cursor:pointer;border:2px solid transparent;transition:all .15s" onclick="selectStore(this,'foodpanda')" id="store-fp">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#D70F64,#FF2B85);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;font-weight:800">fp</div>
+        <div style="flex:1">
+          <div style="font-size:16px;font-weight:700">Foodpanda</div>
+          <div style="font-size:12px;color:var(--t2)">Delivery in 30–45 min</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:18px;font-weight:900" id="fp-price">৳2,920</div>
+          <div style="font-size:11px;color:var(--t3)">incl. delivery ৳49</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <span class="badge b-ok" style="font-size:10px">Free delivery over ৳999</span>
+        <span class="badge" style="background:var(--border-lt);color:var(--t2);font-size:10px">24/24 items available</span>
+      </div>
     </div>
-    <div class="auth-foot mt-16">By signing up you agree to our <a href="#">Terms</a> & <a href="#">Privacy</a></div>
+
+    <!-- Unimart -->
+    <div style="background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--sh);margin-bottom:10px;cursor:pointer;border:2px solid var(--brand);transition:all .15s" onclick="selectStore(this,'unimart')" id="store-uni">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#D32F2F,#F44336);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:800">UNI</div>
+        <div style="flex:1">
+          <div style="font-size:16px;font-weight:700">Unimart</div>
+          <div style="font-size:12px;color:var(--t2)">Delivery in 2–4 hours</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:18px;font-weight:900;color:var(--ok)" id="uni-price">৳2,840</div>
+          <div style="font-size:11px;color:var(--ok);font-weight:600">Cheapest</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <span class="badge b-ok" style="font-size:10px">Best price</span>
+        <span class="badge b-brand" style="font-size:10px">Recommended</span>
+        <span class="badge" style="background:var(--border-lt);color:var(--t2);font-size:10px">24/24 available</span>
+      </div>
+    </div>
+
+    <!-- Shwapno -->
+    <div style="background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--sh);margin-bottom:10px;cursor:pointer;border:2px solid transparent;transition:all .15s" onclick="selectStore(this,'shwapno')" id="store-sw">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#F57C00,#FF9800);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:800">SW</div>
+        <div style="flex:1">
+          <div style="font-size:16px;font-weight:700">Shwapno</div>
+          <div style="font-size:12px;color:var(--t2)">Delivery in 3–5 hours</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:18px;font-weight:900" id="sw-price">৳2,910</div>
+          <div style="font-size:11px;color:var(--t3)">incl. delivery ৳39</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <span class="badge b-warn" style="font-size:10px">22/24 available</span>
+        <span class="badge" style="background:var(--border-lt);color:var(--t2);font-size:10px">2 items swapped</span>
+      </div>
+    </div>
+
+    <!-- Meena Bazar -->
+    <div style="background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--sh);margin-bottom:10px;cursor:pointer;border:2px solid transparent;transition:all .15s" onclick="selectStore(this,'meena')" id="store-mb">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#1B5E20,#388E3C);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:800">MB</div>
+        <div style="flex:1">
+          <div style="font-size:16px;font-weight:700">Meena Bazar</div>
+          <div style="font-size:12px;color:var(--t2)">Delivery in 2–4 hours</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:18px;font-weight:900" id="mb-price">৳2,960</div>
+          <div style="font-size:11px;color:var(--t3)">incl. delivery ৳59</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <span class="badge" style="background:var(--border-lt);color:var(--t2);font-size:10px">23/24 available</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Savings callout -->
+  <div style="margin:8px 16px;padding:12px 14px;background:var(--ok-lt);border-radius:var(--r);font-size:13px;color:var(--ok);font-weight:600;display:flex;align-items:center;gap:8px">
+    <span style="font-size:18px">💡</span>
+    <span>Unimart is ৳80 cheaper than Foodpanda for this basket</span>
+  </div>
+
+  <div style="padding:16px">
+    <button class="btn btn-brand" onclick="sendToStore()" id="send-btn">Send to Unimart Cart →</button>
+    <div style="text-align:center;margin-top:10px;font-size:12px;color:var(--t3)">You'll complete payment & delivery on their site</div>
   </div>
 </div>
 
-<!-- ══ 6A. ORDER CONFIRMED ══ -->
-<div id="s-confirmed" class="scr">
-  <div class="hdr" style="background:var(--ok)"><h1>Order Confirmed</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
+<!-- ══ 5B. ACCOUNT + HANDOFF ══ -->
+<div id="s-handoff" class="scr">
+  <div class="hdr"><h1>Almost there</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
 
-  <div style="text-align:center;padding:32px 24px 16px">
-    <div style="font-size:64px;margin-bottom:12px">✅</div>
-    <h2 style="font-size:22px;font-weight:900;letter-spacing:-.02em">Your groceries are on the way!</h2>
-    <p style="font-size:14px;color:var(--t2);margin-top:6px">Order #SB-20261022-0471</p>
+  <div style="text-align:center;padding:28px 24px 16px">
+    <div style="font-size:56px;margin-bottom:10px">🛒</div>
+    <h2 style="font-size:20px;font-weight:900;letter-spacing:-.02em">Save your plan & send to <span id="handoff-store">Unimart</span></h2>
+    <p style="font-size:14px;color:var(--t2);margin-top:4px">Create a free account to save your meal plan and track what you cook.</p>
   </div>
 
-  <!-- Delivery slot -->
+  <div style="padding:0 20px">
+    <div class="auth-field"><label class="auth-lbl">Full name</label><input class="auth-inp" value="Fatima Ahmed"></div>
+    <div class="auth-field"><label class="auth-lbl">Phone</label><input class="auth-inp" type="tel" placeholder="01XXXXXXXXX"></div>
+    <div class="auth-field"><label class="auth-lbl">Password</label><input class="auth-inp" type="password" placeholder="8+ characters"></div>
+    <button class="btn btn-brand mt-8" onclick="completeHandoff()">Create Account & Send to Cart</button>
+    <div class="auth-div">or</div>
+    <div class="auth-social">
+      <button onclick="completeHandoff()">📱 Phone OTP</button>
+      <button onclick="completeHandoff()"><b>G</b> Google</button>
+    </div>
+    <button class="btn btn-ghost mt-12" onclick="completeHandoff()">Skip — send without account</button>
+    <div class="auth-foot mt-8">By signing up you agree to our <a href="#">Terms</a> & <a href="#">Privacy</a></div>
+  </div>
+</div>
+
+<!-- ══ 6A. BASKET SENT (handoff confirmation) ══ -->
+<div id="s-confirmed" class="scr">
+  <div class="hdr" style="background:var(--ok)"><h1>Basket Sent!</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
+
+  <div style="text-align:center;padding:28px 24px 16px">
+    <div style="font-size:64px;margin-bottom:10px">✅</div>
+    <h2 style="font-size:22px;font-weight:900;letter-spacing:-.02em">Items sent to <span id="conf-store">Unimart</span>!</h2>
+    <p style="font-size:14px;color:var(--t2);margin-top:4px">Complete checkout on their app to schedule delivery.</p>
+  </div>
+
+  <!-- Summary -->
   <div style="margin:0 16px;background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--sh)">
-    <div style="font-size:12px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Delivery Details</div>
     <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-lt)">
-      <span style="color:var(--t2);font-size:14px">Delivery to</span>
-      <span style="font-weight:700;font-size:14px">Gulshan-2, Dhaka</span>
-    </div>
-    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-lt)">
-      <span style="color:var(--t2);font-size:14px">Time slot</span>
-      <span style="font-weight:700;font-size:14px;color:var(--ok)">Today, 4:00–6:00 PM</span>
-    </div>
-    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-lt)">
-      <span style="color:var(--t2);font-size:14px">Items</span>
+      <span style="color:var(--t2);font-size:14px">Items sent</span>
       <span style="font-weight:700;font-size:14px" id="conf-items">24 items</span>
     </div>
-    <div style="display:flex;justify-content:space-between;padding:8px 0">
-      <span style="color:var(--t2);font-size:14px">Total paid</span>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-lt)">
+      <span style="color:var(--t2);font-size:14px">Estimated total</span>
       <span style="font-weight:700;font-size:16px;color:var(--brand)" id="conf-total">৳2,840</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0">
+      <span style="color:var(--t2);font-size:14px">Budget remaining</span>
+      <span style="font-weight:700;font-size:14px;color:var(--ok)">৳160</span>
     </div>
   </div>
 
-  <!-- What happens next -->
-  <div style="margin:16px 16px 0;background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--sh)">
-    <div style="font-size:12px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">What happens next</div>
+  <!-- Open store CTA -->
+  <div style="padding:16px">
+    <button class="btn btn-brand" id="open-store-btn" onclick="toast('Opening store app...')">Open <span id="conf-store2">Unimart</span> to Complete Checkout →</button>
+  </div>
 
+  <!-- What happens in Smart Basket -->
+  <div style="margin:0 16px;background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--sh)">
+    <div style="font-size:12px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Meanwhile in Smart Basket</div>
     <div style="display:flex;gap:12px;align-items:flex-start;padding:8px 0">
       <div style="width:28px;height:28px;border-radius:50%;background:var(--ok);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0">1</div>
-      <div><div style="font-size:14px;font-weight:600">Groceries delivered</div><div style="font-size:12px;color:var(--t2)">All ingredients arrive sorted by recipe</div></div>
+      <div><div style="font-size:14px;font-weight:600">Your meal plan is saved</div><div style="font-size:12px;color:var(--t2)">Come back anytime to see what to cook</div></div>
     </div>
     <div style="display:flex;gap:12px;align-items:flex-start;padding:8px 0">
       <div style="width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0">2</div>
-      <div><div style="font-size:14px;font-weight:600">Start cooking</div><div style="font-size:12px;color:var(--t2)">Open "Today's Meals" for step-by-step recipes</div></div>
+      <div><div style="font-size:14px;font-weight:600">Today's Meals ready</div><div style="font-size:12px;color:var(--t2)">Step-by-step cooking when you're ready</div></div>
     </div>
     <div style="display:flex;gap:12px;align-items:flex-start;padding:8px 0">
       <div style="width:28px;height:28px;border-radius:50%;background:var(--border);color:var(--t2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0">3</div>
-      <div><div style="font-size:14px;font-weight:600">Enjoy the week</div><div style="font-size:12px;color:var(--t2)">Follow your plan, tick off meals as you cook</div></div>
+      <div><div style="font-size:14px;font-weight:600">Next week</div><div style="font-size:12px;color:var(--t2)">Repeat or plan a fresh week</div></div>
     </div>
   </div>
 
   <div style="padding:16px">
-    <button class="btn btn-brand" onclick="go('s-tracking')">Track Delivery →</button>
-    <button class="btn btn-out mt-8" onclick="go('s-today')">See Today's Meals</button>
-  </div>
-</div>
-
-<!-- ══ 6B. DELIVERY TRACKING ══ -->
-<div id="s-tracking" class="scr">
-  <div class="hdr"><button class="hdr-back" onclick="go('s-confirmed')" aria-label="Back">‹</button><h1>Delivery Tracking</h1><div class="hdr-logo"><div class="hdr-dot"></div> SMART BASKET</div></div>
-
-  <div style="padding:20px 16px">
-    <div style="text-align:center;margin-bottom:20px">
-      <div style="font-size:14px;color:var(--t2)">Estimated arrival</div>
-      <div style="font-size:28px;font-weight:900;color:var(--ok);margin-top:4px">4:30 PM</div>
-      <div style="font-size:13px;color:var(--t3)">Today, October 22</div>
-    </div>
-
-    <!-- Timeline -->
-    <div style="background:#fff;border-radius:var(--r);padding:20px 18px;box-shadow:var(--sh)">
-      <div style="display:flex;gap:14px;align-items:flex-start;padding-bottom:20px;position:relative">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:0">
-          <div style="width:24px;height:24px;border-radius:50%;background:var(--ok);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">✓</div>
-          <div style="width:2px;height:32px;background:var(--ok)"></div>
-        </div>
-        <div><div style="font-size:14px;font-weight:700">Order placed</div><div style="font-size:12px;color:var(--t3)">9:42 AM · 24 items confirmed</div></div>
-      </div>
-
-      <div style="display:flex;gap:14px;align-items:flex-start;padding-bottom:20px;position:relative">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:0">
-          <div style="width:24px;height:24px;border-radius:50%;background:var(--ok);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">✓</div>
-          <div style="width:2px;height:32px;background:var(--ok)"></div>
-        </div>
-        <div><div style="font-size:14px;font-weight:700">Being packed</div><div style="font-size:12px;color:var(--t3)">10:15 AM · Store is preparing your order</div></div>
-      </div>
-
-      <div style="display:flex;gap:14px;align-items:flex-start;padding-bottom:20px;position:relative">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:0">
-          <div style="width:24px;height:24px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;animation:pulse 1.5s infinite">●</div>
-          <div style="width:2px;height:32px;background:var(--border)"></div>
-        </div>
-        <div><div style="font-size:14px;font-weight:700;color:var(--brand)">On the way</div><div style="font-size:12px;color:var(--t3)">Rider picked up · ETA 25 min</div></div>
-      </div>
-
-      <div style="display:flex;gap:14px;align-items:flex-start">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:0">
-          <div style="width:24px;height:24px;border-radius:50%;background:var(--border);color:var(--t3);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">4</div>
-        </div>
-        <div><div style="font-size:14px;font-weight:600;color:var(--t3)">Delivered</div><div style="font-size:12px;color:var(--t3)">Arriving at Gulshan-2</div></div>
-      </div>
-    </div>
-
-    <!-- Rider info -->
-    <div style="background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--sh);margin-top:12px;display:flex;align-items:center;gap:14px">
-      <div style="width:44px;height:44px;border-radius:50%;background:var(--border-lt);display:flex;align-items:center;justify-content:center;font-size:22px">🛵</div>
-      <div style="flex:1">
-        <div style="font-size:14px;font-weight:700">Rahim (Rider)</div>
-        <div style="font-size:12px;color:var(--t2)">Unimart Gulshan branch</div>
-      </div>
-      <button class="btn btn-brand btn-sm" style="width:auto">📞 Call</button>
-    </div>
-
-    <button class="btn btn-out mt-16" onclick="go('s-today')">See Today's Meals →</button>
+    <button class="btn btn-out" onclick="go('s-today')">See Today's Meals →</button>
   </div>
 </div>
 
