@@ -19,19 +19,54 @@ const state = {
 const $ = id => document.getElementById(id);
 const $$ = sel => document.querySelectorAll(sel);
 
+// ── LANGUAGE ──
+let lang = 'en';
+function setLang(l) {
+  lang = l;
+  const p = $('phone');
+  p.classList.remove('en', 'bn');
+  p.classList.add(l);
+  document.documentElement.className = l;
+  $$('.lang-btn').forEach(b => b.classList.remove('on'));
+  event.target.classList.add('on');
+  toast(l === 'bn' ? 'ভাষা: বাংলা' : 'Language: English');
+}
+
+// ── BACK NAVIGATION ──
+let prevScreen = 's-home';
+function goBack() { go(prevScreen); }
+
+// ── FILTER CAT (from home cards) ──
+function filterCat(cat) {
+  recipeCat = cat === 'family' ? 'all' : cat === 'budget' ? 'all' : cat;
+  // Will be applied when s-browse renders
+}
+
 // ══════════════════════════════════════════════
 // NAVIGATION
 // ══════════════════════════════════════════════
 function go(id) {
+  prevScreen = state.screen;
   $$('.scr').forEach(s => s.classList.remove('on'));
   $(id).classList.add('on');
   state.screen = id;
   window.scrollTo(0, 0);
 
   // Screen-specific init
-  if (id === 's-recipes') renderRecipeGrid();
+  if (id === 's-browse') renderRecipeGrid();
   if (id === 's-plan') renderPlan();
-  if (id === 's-list') renderShoppingList();
+  if (id === 's-basket') renderShoppingList();
+}
+
+function markDone(btn) {
+  const card = btn.closest('.today-card');
+  if (card) { card.style.opacity = '0.35'; card.querySelector('.today-card-name').style.textDecoration = 'line-through'; }
+  btn.textContent = '✓ Done';
+  btn.disabled = true;
+  btn.style.background = 'var(--ok-lt)';
+  btn.style.color = 'var(--ok)';
+  btn.style.borderColor = 'var(--ok)';
+  toast('Meal done! 🎉');
 }
 
 // ══════════════════════════════════════════════
@@ -180,19 +215,22 @@ function renderShoppingList() {
       const checkClass = item.owned ? ' on' : '';
       const strikeStyle = item.owned ? ' style="text-decoration:line-through"' : '';
 
-      html += `<div class="li${doneClass}${stapleClass}" onclick="toggleListItem(this,'${item.ingredientId}')">
-        <div class="li-chk${checkClass}">${item.owned ? '✓' : ''}</div>
-        <div class="li-info">
-          <div class="li-n"${strikeStyle}>${item.name}</div>
-          <div class="li-prod"><b>${item.brand}</b> · ${Engine.fmtQty(item.packSize * item.packs, item.packUnit)}</div>
-          <div class="li-src">For: ${item.usedIn.slice(0, 3).join(', ')}${item.usedIn.length > 3 ? ' +' + (item.usedIn.length - 3) : ''}</div>
-          <div class="li-need">Need ${Engine.fmtQty(item.needed, item.unit)} · buying ${Engine.fmtQty(item.packSize * item.packs, item.packUnit)}${item.waste > 0 ? ' · ' + Engine.fmtQty(item.waste, item.unit) + ' extra' : ''}</div>
-          ${item.fresh ? '<div class="li-fresh now">🟠 Buy day-of (fresh)</div>' : ''}
-          ${item.isStaple ? '<div class="li-tag warn">Pantry staple — tap if you need to buy</div>' : ''}
+      const icos = {chicken:'🍗',hilsha:'🐟',rui:'🐟',prawn:'🦐',mutton:'🥩',egg:'🥚',tilapia:'🐟',rice:'🍚',flour:'🌾',moong_dal:'🫘',masoor_dal:'🫘',bread:'🍞',potato:'🥔',onion:'🧅',tomato:'🍅',eggplant:'🍆',green_chilli:'🌶️',garlic:'🧄',ginger:'🫚',mixed_veg:'🥬',oil:'🫗',salt:'🧂',sugar:'🍬',turmeric:'✨',yogurt:'🥛',butter:'🧈',ghee:'🧈',chickpea:'🫘',dried_fish:'🐠'};
+      const ico = icos[item.ingredientId] || '📦';
+
+      html += `<div class="basket-item${item.owned?' owned':''}${item.isStaple?' staple':''}" onclick="toggleListItem(this,'${item.ingredientId}')">
+        <div class="bi-chk${checkClass}">${item.owned ? '✓' : ''}</div>
+        <div class="basket-img">${ico}</div>
+        <div class="bi-info">
+          <div class="bi-name"${strikeStyle}>${item.name}</div>
+          <div class="bi-detail"><b>${item.brand}</b> · ${Engine.fmtQty(item.packSize * item.packs, item.packUnit)}</div>
+          <div class="bi-src">For: ${item.usedIn.slice(0, 2).join(', ')}${item.usedIn.length > 2 ? ' +' + (item.usedIn.length - 2) : ''}</div>
+          ${item.fresh ? '<div style="font-size:11px;color:var(--warn);margin-top:1px">🟠 Buy fresh</div>' : ''}
+          ${item.isStaple ? '<div style="font-size:11px;color:var(--warn);margin-top:1px">Already have? Tap to toggle</div>' : ''}
         </div>
-        <div class="li-rt">
-          <div class="li-qty">${item.packs > 1 ? item.packs + '×' : ''}${Engine.fmtQty(item.packSize, item.packUnit)}</div>
-          <div class="li-pr">${Engine.fmt(item.totalPrice)}</div>
+        <div class="bi-rt">
+          <div class="bi-qty">${Engine.fmtQty(item.needed, item.unit)}</div>
+          <div class="bi-price">${Engine.fmt(item.totalPrice)}</div>
         </div>
       </div>`;
     }
@@ -219,8 +257,8 @@ function toggleListItem(el, ingId) {
 
 function filterShoppingList() {
   const q = $('list-search').value.toLowerCase();
-  $$('#list-items .li').forEach(li => {
-    const name = li.querySelector('.li-n').textContent.toLowerCase();
+  $$('#list-items .basket-item').forEach(li => {
+    const name = li.querySelector('.bi-name').textContent.toLowerCase();
     li.style.display = name.includes(q) ? '' : 'none';
   });
 }
