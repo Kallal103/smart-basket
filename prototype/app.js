@@ -150,29 +150,30 @@ function renderPlan() {
   $('bb-badge').className = 'badge ' + (totalCost <= state.budget ? 'b-ok' : 'b-brand');
 
   // Days
+  const gradients = { breakfast: 'g1', lunch: 'g3', dinner: 'g4' };
   let html = '';
   for (let d = 0; d < 7; d++) {
     const dayEntries = state.plan.filter(e => e.day === d);
-    html += `<div class="day"><div class="day-h">${DAY_NAMES[d]} <span class="day-dt">${DAY_DATES[d]}</span><span class="day-cost">${Engine.fmt(dayCosts[d])}</span></div>`;
+    html += `<div class="plan-day"><div class="plan-day-h"><span class="day-name">${DAY_NAMES[d]} · ${DAY_DATES[d]}</span><span class="day-cost">${Engine.fmt(dayCosts[d])}</span></div>`;
     for (const slot of ['breakfast', 'lunch', 'dinner']) {
       const entry = dayEntries.find(e => e.slot === slot);
       const recipe = entry ? RECIPES.find(r => r.id === entry.recipe) : null;
       if (recipe) {
         const cost = Engine.recipeCost(recipe, state.servings);
-        html += `<div class="sl" onclick="showRecipeDetail('${recipe.id}')">
-          <span class="sl-ico">${SLOT_ICONS[slot]}</span>
-          <div class="sl-body">
-            <div class="sl-lbl">${SLOT_NAMES[slot]}</div>
-            <div class="sl-name">${recipe.name}</div>
-            <div class="sl-bn">${recipe.bn}</div>
+        html += `<div class="plan-meal" onclick="showRecipeDetail('${recipe.id}')">
+          <div class="plan-meal-img ${recipe.img || gradients[slot]}">${recipe.ico}</div>
+          <div class="plan-meal-body">
+            <div class="plan-meal-slot">${SLOT_NAMES[slot]}</div>
+            <div class="plan-meal-name">${recipe.name}</div>
+            <div class="plan-meal-bn">${recipe.bn}</div>
           </div>
-          <div class="sl-pr">${Engine.fmt(cost)}</div>
-          <span class="sl-swap" onclick="event.stopPropagation();openSwapModal(${d},'${slot}')">Swap</span>
+          <div class="plan-meal-price">${Engine.fmt(cost)}</div>
+          <span class="plan-meal-swap" onclick="event.stopPropagation();openSwapModal(${d},'${slot}')">Swap</span>
         </div>`;
       } else {
-        html += `<div class="sl" onclick="openPickerModal(${d},'${slot}')">
-          <span class="sl-ico">${SLOT_ICONS[slot]}</span>
-          <div class="sl-body"><div class="sl-lbl">${SLOT_NAMES[slot]}</div><div class="sl-empty">Tap to add</div></div>
+        html += `<div class="plan-meal" onclick="openPickerModal(${d},'${slot}')">
+          <div class="plan-meal-img" style="background:var(--border-lt)">${SLOT_ICONS[slot]}</div>
+          <div class="plan-meal-body"><div class="plan-meal-slot">${SLOT_NAMES[slot]}</div><div style="font-size:14px;color:var(--t3)">Tap to add a dish</div></div>
         </div>`;
       }
     }
@@ -278,15 +279,14 @@ function renderRecipeGrid(query) {
   $('r-grid').innerHTML = items.map(r => {
     const cost = Engine.recipeCost(r, state.servings);
     const diffBadge = r.diff === 'Easy' ? 'b-ok' : r.diff === 'Medium' ? 'b-warn' : 'b-brand';
-    return `<div class="r-card" onclick="showRecipeDetail('${r.id}')">
-      <div class="r-img ${r.img}">${r.ico}<span class="badge ${diffBadge} r-diff">${r.diff}</span></div>
-      <div class="r-info">
-        <div class="r-name">${r.name}</div>
-        <div class="r-bn">${r.bn}</div>
-        <div class="r-meta">
-          <span class="r-tag">⏱${r.time}m</span>
-          <span class="r-tag">${Engine.fmt(cost)}</span>
-          ${r.spice ? `<span class="r-tag">${'🌶️'.repeat(r.spice)}</span>` : ''}
+    return `<div class="food-card" onclick="showRecipeDetail('${r.id}')">
+      <div class="food-img ${r.img}">${r.ico}<span class="badge ${diffBadge} food-badge">${r.diff}</span><span class="food-time">⏱ ${r.time}m</span></div>
+      <div class="food-info">
+        <div class="food-name">${r.name}</div>
+        <div class="food-bn">${r.bn}</div>
+        <div class="food-meta">
+          <span class="food-price">${Engine.fmt(cost)}</span>
+          ${r.spice ? `<span class="food-rating">${'🌶️'.repeat(r.spice)}</span>` : ''}
         </div>
       </div>
     </div>`;
@@ -337,11 +337,15 @@ function renderRecipeDetail() {
     </div>`;
   }).join('');
 
-  // Steps
+  // Steps (visual)
+  const stepGrads = ['g1','g6','g3','g4','g2','g5','g1'];
   $('rd-steps').innerHTML = r.steps.map((step, i) =>
-    `<div class="rd-step" onclick="this.classList.toggle('done')">
-      <div class="rd-step-n">${i + 1}</div>
-      <div class="rd-step-txt">${step}</div>
+    `<div class="cook-step" onclick="this.classList.toggle('done')">
+      <div class="cook-step-img ${stepGrads[i % stepGrads.length]}" style="font-size:32px">${i === r.steps.length - 1 ? '🍽️' : '🔥'}</div>
+      <div class="cook-step-body">
+        <div class="cook-step-n">Step ${i + 1}</div>
+        <div class="cook-step-txt">${step}</div>
+      </div>
     </div>`
   ).join('');
 }
@@ -380,8 +384,9 @@ function openSwapModal(day, slot) {
     const cost = Engine.recipeCost(r, state.servings);
     const saving = currentRecipe ? Engine.recipeCost(currentRecipe, state.servings) - cost : 0;
     html += `<div class="sw-opt" onclick="doSwap('${r.id}')">
-      <div><div class="sw-nm">${r.ico} ${r.name}</div><div class="sw-bn">${r.bn}</div></div>
-      <div style="text-align:right"><div class="sw-pr">${Engine.fmt(cost)}</div>
+      <div class="sw-img ${r.img || 'g1'}">${r.ico}</div>
+      <div class="sw-info"><div class="sw-nm">${r.name}</div><div class="sw-bn">${r.bn}</div></div>
+      <div class="sw-rt"><div class="sw-pr">${Engine.fmt(cost)}</div>
       ${saving > 0 ? `<div class="sw-tg">Save ${Engine.fmt(saving)}</div>` : ''}</div>
     </div>`;
   }
