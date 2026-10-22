@@ -103,6 +103,32 @@ const PRODUCTS = {
   lentil:       [{ brand: 'Pran', size: 1000, unit: 'g', price: 130 }],
 };
 
+// ── PHOTO MAP (Unsplash CDN — free, no attribution required) ──
+const PHOTOS = {
+  chicken_curry:   'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&h=300&fit=crop',
+  hilsha_curry:    'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=400&h=300&fit=crop',
+  egg_curry:       'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=300&fit=crop',
+  dal_veg:         'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop',
+  paratha_egg:     'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop',
+  luchi_alur_dom:  'https://images.unsplash.com/photo-1567337710282-00832b415979?w=400&h=300&fit=crop',
+  khichuri_egg:    'https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&h=300&fit=crop',
+  chicken_biryani: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400&h=300&fit=crop',
+  begun_bharta:    'https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&h=300&fit=crop',
+  toast_jam:       'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400&h=300&fit=crop',
+  prawn_malai:     'https://images.unsplash.com/photo-1625398407796-82650a8c135f?w=400&h=300&fit=crop',
+  rui_jhol:        'https://images.unsplash.com/photo-1626776876729-bab4369a5a5a?w=400&h=300&fit=crop',
+  mutton_rezala:   'https://images.unsplash.com/photo-1545247181-516773cae754?w=400&h=300&fit=crop',
+  aloo_bhaji:      'https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&h=300&fit=crop',
+  chhola_paratha:  'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=400&h=300&fit=crop',
+  moong_dal_rice:  'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop',
+  fuchka:          'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop',
+  veg_khichuri:    'https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&h=300&fit=crop',
+  haleem:          'https://images.unsplash.com/photo-1547714754-b0bdc7f1f13e?w=400&h=300&fit=crop',
+  shutki_bhorta:   'https://images.unsplash.com/photo-1626776876729-bab4369a5a5a?w=400&h=300&fit=crop',
+  tilapia_fry:     'https://images.unsplash.com/photo-1580476262798-bddd9f4b7f83?w=400&h=300&fit=crop',
+  _fallback:       'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop',
+};
+
 // ── RECIPES ──
 // ingredients: array of { id: ingredient key, qty: per serving, unit: display }
 // All quantities are PER 1 SERVING

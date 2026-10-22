@@ -175,8 +175,9 @@ function renderPlan() {
       const recipe = entry ? RECIPES.find(r => r.id === entry.recipe) : null;
       if (recipe) {
         const cost = Engine.recipeCost(recipe, state.servings);
+        const mealPhoto = (typeof PHOTOS!=='undefined'?PHOTOS:{})[recipe.id]||'';
         html += `<div class="plan-meal" onclick="showRecipeDetail('${recipe.id}')">
-          <div class="plan-meal-img ${recipe.img || 'g1'}">${recipe.ico}</div>
+          <div class="plan-meal-img ${recipe.img || 'g1'}" style="${mealPhoto?'background:url('+mealPhoto+') center/cover;':''}font-size:${mealPhoto?'0':'28px'}">${mealPhoto?'':recipe.ico}</div>
           <div class="plan-meal-body">
             <div class="plan-meal-slot">${SLOT_NAMES[slot]}</div>
             <div class="plan-meal-name">${recipe.name}</div>
@@ -282,11 +283,17 @@ function renderRecipeGrid(query) {
     (!q || r.name.toLowerCase().includes(q) || r.bn.includes(q))
   );
 
+  const ph = typeof PHOTOS !== 'undefined' ? PHOTOS : {};
   $('r-grid').innerHTML = items.map(r => {
     const cost = Engine.recipeCost(r, state.servings);
     const diffBadge = r.diff === 'Easy' ? 'b-ok' : r.diff === 'Medium' ? 'b-warn' : 'b-brand';
+    const photo = ph[r.id] || ph._fallback || '';
     return `<div class="food-card" onclick="showRecipeDetail('${r.id}')">
-      <div class="food-img ${r.img}">${r.ico}<span class="badge ${diffBadge} food-badge">${r.diff}</span><span class="food-time">⏱ ${r.time}m</span></div>
+      <div class="food-img ${r.img}" style="${photo ? 'background:url('+photo+') center/cover;' : ''}">
+        ${photo ? '' : r.ico}
+        <span class="badge ${diffBadge} food-badge">${r.diff}</span>
+        <span class="food-time">⏱ ${r.time}m</span>
+      </div>
       <div class="food-info">
         <div class="food-name">${r.name}</div>
         <div class="food-bn">${r.bn}</div>
@@ -324,9 +331,13 @@ function renderRecipeDetail() {
   if (!r) return;
 
   $('rd-h').textContent = r.name;
-  // Rebuild hero with overlay (don't just set textContent which kills children)
+  const ph = typeof PHOTOS !== 'undefined' ? PHOTOS : {};
+  const photo = ph[r.id] || ph._fallback || '';
   $('rd-hero').className = 'rd-hero ' + (r.img || 'g1');
-  $('rd-hero').innerHTML = r.ico + `<div class="rd-hero-overlay"><h2>${r.name}</h2><div style="font-family:var(--bn);font-size:16px;opacity:.85">${r.bn}</div></div>`;
+  $('rd-hero').style.backgroundImage = photo ? 'url(' + photo + ')' : '';
+  $('rd-hero').style.backgroundSize = 'cover';
+  $('rd-hero').style.backgroundPosition = 'center';
+  $('rd-hero').innerHTML = (photo ? '' : r.ico) + `<div class="rd-hero-overlay"><h2>${r.name}</h2><div style="font-family:var(--bn);font-size:16px;opacity:.85">${r.bn}</div></div>`;
   $('rd-time').textContent = r.time;
   $('rd-diff').textContent = r.diff;
   $('rd-cost').innerHTML = Engine.fmt(Engine.recipeCost(r, detailServings));
@@ -393,8 +404,9 @@ function openSwapModal(day, slot) {
   for (const r of alternatives) {
     const cost = Engine.recipeCost(r, state.servings);
     const saving = currentRecipe ? Engine.recipeCost(currentRecipe, state.servings) - cost : 0;
+    const swPhoto = (typeof PHOTOS!=='undefined'?PHOTOS:{})[r.id]||'';
     html += `<div class="sw-opt" onclick="doSwap('${r.id}')">
-      <div class="sw-img ${r.img || 'g1'}">${r.ico}</div>
+      <div class="sw-img ${r.img || 'g1'}" style="${swPhoto?'background:url('+swPhoto+') center/cover;font-size:0':''}">${swPhoto?'':r.ico}</div>
       <div class="sw-info"><div class="sw-nm">${r.name}</div><div class="sw-bn">${r.bn}</div></div>
       <div class="sw-rt"><div class="sw-pr">${Engine.fmt(cost)}</div>
       ${saving > 0 ? `<div class="sw-tg">Save ${Engine.fmt(saving)}</div>` : ''}</div>
@@ -428,8 +440,9 @@ function openPickerModal(day, slot) {
 
   for (const r of options) {
     const cost = Engine.recipeCost(r, state.servings);
+    const pkPhoto = (typeof PHOTOS!=='undefined'?PHOTOS:{})[r.id]||'';
     html += `<div class="sw-opt" onclick="pickDish('${r.id}')">
-      <div class="sw-img ${r.img || 'g1'}">${r.ico}</div>
+      <div class="sw-img ${r.img || 'g1'}" style="${pkPhoto?'background:url('+pkPhoto+') center/cover;font-size:0':''}">${pkPhoto?'':r.ico}</div>
       <div class="sw-info"><div class="sw-nm">${r.name}</div><div class="sw-bn">${r.bn}</div></div>
       <div class="sw-rt"><div class="sw-pr">${Engine.fmt(cost)}</div><div class="sw-tg">${r.time}m · ${r.diff}</div></div>
     </div>`;
