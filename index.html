@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart Basket — What would you like to cook?</title>
+<title>Smart Basket — Unimart Meal Planner</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,62 +13,138 @@
 <div class="phone en" id="phone">
 <div class="toast-c" id="toasts"></div>
 
-<!-- ══ HOME — FOOD DISCOVERY ══ -->
+<!-- ══ HOME ══ -->
 <div id="s-home" class="scr on">
-  <div class="sb dark"><span>9:41</span><span>📶 🔋</span></div>
-  <div class="home-hero"><h1><span class="en-only">What would you<br>like to cook?</span><span class="bn-only">আজ কী রান্না<br>করবেন?</span></h1><p><span class="en-only">Discover meals, plan your week, shop smarter</span><span class="bn-only">খাবার বাছাই করুন, সপ্তাহ পরিকল্পনা করুন</span></p></div>
+
+  <!-- Full-bleed hero -->
+  <div class="home-hero">
+    <div class="home-hero-img"></div>
+    <div class="home-hero-bar">
+      <span class="logo">unimart</span>
+      <span class="loc">Dhaka</span>
+    </div>
+    <div class="home-hero-content">
+      <h1><span class="en-only">Tonight's dinner,<br>sorted.</span><span class="bn-only">আজকের রাতের<br>খাবার, তৈরি।</span></h1>
+      <p><span class="en-only">Plan meals, compare prices, shop smarter</span><span class="bn-only">খাবার পরিকল্পনা করুন, দাম তুলনা করুন</span></p>
+      <div class="home-hero-cta">
+        <button class="btn btn-brand btn-sm" onclick="go('s-setup')"><span class="en-only">Plan my week</span><span class="bn-only">সপ্তাহ প্ল্যান</span></button>
+        <button class="btn btn-white btn-sm" onclick="go('s-browse')"><span class="en-only">Browse meals</span><span class="bn-only">খাবার দেখুন</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category grid — real food photos -->
+  <div class="sec-h"><h2><span class="en-only">Explore</span><span class="bn-only">ক্যাটাগরি</span></h2></div>
   <div class="cat-grid">
-    <div class="cat-card" onclick="go('s-browse');filterCat('quick')"><div class="cat-card-bg quick">⚡🍳</div><div class="cat-card-label"><div><span class="en-only">Quick Meals</span><span class="bn-only">দ্রুত রান্না</span></div><div><span class="en-only">Under 20 min</span><span class="bn-only">২০ মিনিটে</span></div></div></div>
-    <div class="cat-card" onclick="go('s-browse');filterCat('family')"><div class="cat-card-bg family">👨‍👩‍👧‍👦🍲</div><div class="cat-card-label"><div><span class="en-only">Family Favourites</span><span class="bn-only">পরিবারের পছন্দ</span></div><div><span class="en-only">Loved by all</span><span class="bn-only">সবার প্রিয়</span></div></div></div>
-    <div class="cat-card" onclick="go('s-browse');filterCat('budget')"><div class="cat-card-bg budget">💰🥗</div><div class="cat-card-label"><div><span class="en-only">Budget Meals</span><span class="bn-only">সাশ্রয়ী খাবার</span></div><div><span class="en-only">Under ৳100</span><span class="bn-only">৳১০০ এর নিচে</span></div></div></div>
-    <div class="cat-card" onclick="go('s-browse');filterCat('all')"><div class="cat-card-bg explore">🌏🍛</div><div class="cat-card-label"><div><span class="en-only">Explore All</span><span class="bn-only">সব দেখুন</span></div><div><span class="en-only">21 dishes</span><span class="bn-only">২১ রেসিপি</span></div></div></div>
+    <div class="cat-card" onclick="go('s-browse');filterCat('quick')"><div class="cat-card-bg" style="background-image:url(https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400&h=300&fit=crop)"></div><div class="cat-card-label"><div><span class="en-only">Quick Meals</span><span class="bn-only">দ্রুত রান্না</span></div><div><span class="en-only">Under 20 min</span><span class="bn-only">২০ মিনিটে</span></div></div></div>
+    <div class="cat-card" onclick="go('s-browse');filterCat('family')"><div class="cat-card-bg" style="background-image:url(https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop)"></div><div class="cat-card-label"><div><span class="en-only">Family Favourites</span><span class="bn-only">পরিবারের পছন্দ</span></div><div><span class="en-only">Loved by all</span><span class="bn-only">সবার প্রিয়</span></div></div></div>
+    <div class="cat-card" onclick="go('s-browse');filterCat('budget')"><div class="cat-card-bg" style="background-image:url(https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop)"></div><div class="cat-card-label"><div><span class="en-only">Budget Friendly</span><span class="bn-only">সাশ্রয়ী খাবার</span></div><div><span class="en-only">Under ৳100</span><span class="bn-only">৳১০০ এর নিচে</span></div></div></div>
+    <div class="cat-card" onclick="go('s-browse');filterCat('all')"><div class="cat-card-bg" style="background-image:url(https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400&h=300&fit=crop)"></div><div class="cat-card-label"><div><span class="en-only">Explore All</span><span class="bn-only">সব দেখুন</span></div><div><span class="en-only">21 dishes</span><span class="bn-only">২১ রেসিপি</span></div></div></div>
   </div>
-  <div class="entry-section"><h2><span class="en-only">How to start?</span><span class="bn-only">কিভাবে শুরু করবেন?</span></h2>
-    <button class="entry-btn" onclick="go('s-browse')"><div class="entry-ico choose">🍽️</div><div><div class="entry-title"><span class="en-only">Choose my meals</span><span class="bn-only">নিজে বাছাই করুন</span></div><div class="entry-desc"><span class="en-only">Browse and pick what you love</span><span class="bn-only">ছবি দেখে পছন্দ করুন</span></div></div><span class="entry-arrow">›</span></button>
-    <button class="entry-btn" onclick="go('s-setup')"><div class="entry-ico plan">✨</div><div><div class="entry-title"><span class="en-only">Plan for me</span><span class="bn-only">আমার জন্য পরিকল্পনা</span></div><div class="entry-desc"><span class="en-only">AI fills your week within budget</span><span class="bn-only">বাজেটে সপ্তাহের প্ল্যান</span></div></div><span class="entry-arrow">›</span></button>
-    <button class="entry-btn" onclick="toast('Coming soon!')"><div class="entry-ico pantry">📸</div><div><div class="entry-title"><span class="en-only">Use what I have</span><span class="bn-only">যা আছে তা দিয়ে</span></div><div class="entry-desc"><span class="en-only">Photo your fridge</span><span class="bn-only">ফ্রিজের ছবি তুলুন</span></div></div><span class="entry-arrow">›</span></button>
+
+  <!-- How to start — horizontal scroll cards -->
+  <div class="sec-h"><h2><span class="en-only">How to start</span><span class="bn-only">কিভাবে শুরু করবেন</span></h2></div>
+  <div class="entry-row">
+    <div class="entry-card" onclick="go('s-browse')">
+      <div class="entry-card-ico choose"><svg class="icon" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/><circle cx="8" cy="6" r="1.5" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="10" cy="18" r="1.5" fill="currentColor" stroke="none"/></svg></div>
+      <h3><span class="en-only">Choose my meals</span><span class="bn-only">নিজে বাছাই করুন</span></h3>
+      <p><span class="en-only">Browse 21 dishes and pick what your family loves</span><span class="bn-only">ছবি দেখে পছন্দের খাবার বাছাই করুন</span></p>
+      <div class="entry-card-arrow"><span class="en-only">Browse</span><span class="bn-only">দেখুন</span> &rarr;</div>
+    </div>
+    <div class="entry-card" onclick="go('s-setup')">
+      <div class="entry-card-ico plan"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01z"/></svg></div>
+      <h3><span class="en-only">Plan for me</span><span class="bn-only">আমার প্ল্যান</span></h3>
+      <p><span class="en-only">AI fills your entire week within your budget</span><span class="bn-only">AI বাজেটে সপ্তাহের প্ল্যান তৈরি করবে</span></p>
+      <div class="entry-card-arrow"><span class="en-only">Start</span><span class="bn-only">শুরু</span> &rarr;</div>
+    </div>
+    <div class="entry-card" onclick="toast('Coming soon!')">
+      <div class="entry-card-ico pantry"><svg class="icon" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+      <h3><span class="en-only">Use what I have</span><span class="bn-only">যা আছে তা দিয়ে</span></h3>
+      <p><span class="en-only">Photo your fridge &mdash; we suggest recipes</span><span class="bn-only">ফ্রিজের ছবি তুলুন, রেসিপি পাবেন</span></p>
+      <div class="entry-card-arrow" style="color:var(--t3)"><span class="en-only">Coming soon</span><span class="bn-only">শীঘ্রই আসছে</span></div>
+    </div>
   </div>
-  <div style="padding:8px 16px 4px"><h2 style="font-size:17px;font-weight:800"><span class="en-only">Today's Pick</span><span class="bn-only">আজকের বিশেষ</span></h2></div>
-  <div class="food-featured" onclick="showRecipeDetail('chicken_curry')"><div class="food-img g1" style="height:160px;background:url(https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&h=300&fit=crop) center/cover"></div><div class="food-info"><div class="food-name" style="font-size:17px">Chicken Curry & Rice</div><div class="food-bn">মুরগির তরকারি ও ভাত</div><div class="food-meta"><span class="food-price">৳180</span><span style="color:var(--t3)">·</span><span style="font-size:13px;color:var(--t2)">30 min</span><span style="color:var(--t3)">·</span><span class="food-rating">★★★★★</span></div></div></div>
-  <div class="bnav"><button class="on"><span class="ni">🏠</span><span class="en-only">Home</span><span class="bn-only">হোম</span></button><button onclick="go('s-browse')"><span class="ni">📖</span><span class="en-only">Recipes</span><span class="bn-only">রেসিপি</span></button><button onclick="go('s-plan')"><span class="ni">📅</span><span class="en-only">Plan</span><span class="bn-only">প্ল্যান</span></button><button onclick="go('s-basket')"><span class="ni">🛒</span><span class="en-only">Basket</span><span class="bn-only">ঝুড়ি</span></button><button onclick="go('s-profile')"><span class="ni">👤</span><span class="en-only">Profile</span><span class="bn-only">প্রোফাইল</span></button></div>
+
+  <!-- Featured dish — full-width photo card -->
+  <div class="sec-h"><h2><span class="en-only">Today's Pick</span><span class="bn-only">আজকের বিশেষ</span></h2></div>
+  <div class="featured" onclick="showRecipeDetail('chicken_curry')">
+    <div class="featured-img" style="background-image:url(https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=800&h=500&fit=crop)">
+      <div class="featured-overlay">
+        <div class="tag"><span class="en-only">Chef's pick</span><span class="bn-only">শেফের পছন্দ</span></div>
+        <h3>Chicken Curry & Rice</h3>
+        <div class="featured-meta">
+          <span>৳180</span>
+          <span>30 min</span>
+          <span>Easy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:24px"></div>
+
+  <!-- Bottom nav with SVG icons -->
+  <div class="bnav">
+    <button class="on"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="en-only">Home</span><span class="bn-only">হোম</span></button>
+    <button onclick="go('s-browse')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="en-only">Discover</span><span class="bn-only">খুঁজুন</span></button>
+    <button onclick="go('s-plan')"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class="en-only">Plan</span><span class="bn-only">প্ল্যান</span></button>
+    <button onclick="go('s-basket')"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="en-only">Basket</span><span class="bn-only">ঝুড়ি</span></button>
+    <button onclick="go('s-profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="en-only">Profile</span><span class="bn-only">প্রোফাইল</span></button>
+  </div>
 </div>
 
 <!-- ══ BROWSE MEALS ══ -->
 <div id="s-browse" class="scr">
-  <div class="hdr"><button class="hdr-back" onclick="go('s-home')">‹</button><h1><span class="en-only">Discover Meals</span><span class="bn-only">খাবার দেখুন</span></h1><span class="hdr-logo">SMART BASKET</span></div>
-  <div class="search"><span class="search-ico">🔍</span><input placeholder="Search dishes..." id="r-q" oninput="renderRecipeGrid(this.value)"></div>
+  <div class="hdr"><button class="hdr-back" onclick="go('s-home')"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="15 18 9 12 15 6"/></svg></button><h1><span class="en-only">Discover</span><span class="bn-only">খাবার দেখুন</span></h1><span class="hdr-logo">unimart</span></div>
+  <div class="search"><span class="search-ico"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><input placeholder="Search dishes..." id="r-q" oninput="renderRecipeGrid(this.value)"></div>
   <div class="pills" id="r-pills"><button class="pill on" onclick="filterRecipeCat(this,'all')">All</button><button class="pill" onclick="filterRecipeCat(this,'breakfast')">Breakfast</button><button class="pill" onclick="filterRecipeCat(this,'lunch')">Lunch</button><button class="pill" onclick="filterRecipeCat(this,'dinner')">Dinner</button><button class="pill" onclick="filterRecipeCat(this,'fish')">Fish</button><button class="pill" onclick="filterRecipeCat(this,'chicken')">Chicken</button><button class="pill" onclick="filterRecipeCat(this,'veg')">Veg</button><button class="pill" onclick="filterRecipeCat(this,'quick')">Quick</button></div>
   <div class="food-grid mt-12" id="r-grid"></div>
-  <div class="bnav"><button onclick="go('s-home')"><span class="ni">🏠</span>Home</button><button class="on"><span class="ni">📖</span>Recipes</button><button onclick="go('s-plan')"><span class="ni">📅</span>Plan</button><button onclick="go('s-basket')"><span class="ni">🛒</span>Basket</button><button onclick="go('s-profile')"><span class="ni">👤</span>Profile</button></div>
+  <div class="bnav">
+    <button onclick="go('s-home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</button>
+    <button class="on"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Discover</button>
+    <button onclick="go('s-plan')"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Plan</button>
+    <button onclick="go('s-basket')"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Basket</button>
+    <button onclick="go('s-profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</button>
+  </div>
 </div>
 
 <!-- ══ SETUP ══ -->
 <div id="s-setup" class="scr">
-  <div class="hdr"><button class="hdr-back" onclick="go('s-home')">‹</button><h1><span class="en-only">Plan for Me</span><span class="bn-only">আমার প্ল্যান</span></h1><span class="hdr-logo">SMART BASKET</span></div>
-  <div class="setup-card"><div class="setup-label"><span class="ico">👥</span> <span class="en-only">People eating</span><span class="bn-only">কতজন খাবেন?</span></div><div class="stepper"><button onclick="adjHH(-1)">−</button><span class="val" id="hh-v">4</span><button onclick="adjHH(1)">+</button></div></div>
-  <div class="setup-card"><div class="setup-label"><span class="ico">💰</span> <span class="en-only">Weekly budget</span><span class="bn-only">সাপ্তাহিক বাজেট</span></div><input type="range" class="slider" min="1000" max="8000" value="3000" step="250" oninput="updBudget(this.value)"><div class="budget-v" id="bv">৳3,000</div></div>
-  <div class="setup-card"><div class="setup-label"><span class="ico">🚫</span> <span class="en-only">Exclusions</span><span class="bn-only">বাদ দিন</span></div><div class="chips" id="diet-chips"><button class="chip on" data-id="no_beef" onclick="togChip(this)">No beef</button><button class="chip" data-id="vegetarian" onclick="togChip(this)">Vegetarian</button><button class="chip" data-id="no_fish" onclick="togChip(this)">No fish</button><button class="chip" data-id="no_shellfish" onclick="togChip(this)">No shellfish</button><button class="chip" data-id="no_dairy" onclick="togChip(this)">Dairy-free</button><button class="chip" data-id="mild_spice" onclick="togChip(this)">Mild spice</button></div></div>
-  <div style="padding:8px 16px"><button class="btn btn-brand btn-lg" onclick="generatePlan()">✨ <span class="en-only">Generate My Plan</span><span class="bn-only">প্ল্যান তৈরি করুন</span></button></div>
+  <div class="hdr"><button class="hdr-back" onclick="go('s-home')"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="15 18 9 12 15 6"/></svg></button><h1><span class="en-only">Plan for Me</span><span class="bn-only">আমার প্ল্যান</span></h1><span class="hdr-logo">unimart</span></div>
+  <div class="setup-intro"><h2><span class="en-only">Tell us about<br>your household</span><span class="bn-only">পরিবার সম্পর্কে<br>বলুন</span></h2><p><span class="en-only">We'll create a personalized meal plan</span><span class="bn-only">আমরা আপনার জন্য প্ল্যান তৈরি করব</span></p></div>
+  <div class="setup-card"><div class="setup-label">People eating</div><div class="stepper"><button onclick="adjHH(-1)">−</button><span class="val" id="hh-v">4</span><button onclick="adjHH(1)">+</button></div></div>
+  <div class="setup-card"><div class="setup-label">Weekly budget</div><input type="range" class="slider" min="1000" max="8000" value="3000" step="250" oninput="updBudget(this.value)"><div class="budget-v" id="bv">৳3,000</div></div>
+  <div class="setup-card"><div class="setup-label">Dietary exclusions</div><div class="chips" id="diet-chips"><button class="chip on" data-id="no_beef" onclick="togChip(this)">No beef</button><button class="chip" data-id="vegetarian" onclick="togChip(this)">Vegetarian</button><button class="chip" data-id="no_fish" onclick="togChip(this)">No fish</button><button class="chip" data-id="no_shellfish" onclick="togChip(this)">No shellfish</button><button class="chip" data-id="no_dairy" onclick="togChip(this)">Dairy-free</button><button class="chip" data-id="mild_spice" onclick="togChip(this)">Mild spice</button></div></div>
+  <div style="padding:16px 20px"><button class="btn btn-brand btn-lg" onclick="generatePlan()"><span class="en-only">Generate My Plan</span><span class="bn-only">প্ল্যান তৈরি করুন</span></button></div>
 </div>
 
 <!-- ══ MEAL PLAN ══ -->
 <div id="s-plan" class="scr">
-  <div class="hdr"><h1><span class="en-only">Your Meal Plan</span><span class="bn-only">আপনার প্ল্যান</span></h1><span class="hdr-logo">SMART BASKET</span></div>
+  <div class="hdr"><h1><span class="en-only">Your Meal Plan</span><span class="bn-only">আপনার প্ল্যান</span></h1><span class="hdr-logo">unimart</span></div>
   <div class="bbar"><div><div class="bbar-amt" id="bb-amt">৳0</div><div class="bbar-sub" id="bb-sub">of ৳3,000</div></div><div class="bbar-trk"><div class="bbar-fill ok" id="bb-fill" style="width:0"></div></div><span class="badge b-ok" id="bb-badge">...</span></div>
   <div id="plan-days"></div>
-  <div style="padding:12px 16px"><button class="btn btn-brand btn-lg" onclick="go('s-basket')">🛒 <span class="en-only">View Shopping Basket</span><span class="bn-only">বাজারের ঝুড়ি দেখুন</span></button></div>
-  <div class="bnav"><button onclick="go('s-home')"><span class="ni">🏠</span>Home</button><button onclick="go('s-browse')"><span class="ni">📖</span>Recipes</button><button class="on"><span class="ni">📅</span>Plan</button><button onclick="go('s-basket')"><span class="ni">🛒</span>Basket</button><button onclick="go('s-profile')"><span class="ni">👤</span>Profile</button></div>
+  <div style="padding:16px 20px"><button class="btn btn-dark btn-lg" onclick="go('s-basket')"><span class="en-only">View Shopping Basket</span><span class="bn-only">বাজারের ঝুড়ি দেখুন</span></button></div>
+  <div class="bnav">
+    <button onclick="go('s-home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</button>
+    <button onclick="go('s-browse')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Discover</button>
+    <button class="on"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Plan</button>
+    <button onclick="go('s-basket')"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Basket</button>
+    <button onclick="go('s-profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</button>
+  </div>
 </div>
 
 <!-- ══ RECIPE DETAIL ══ -->
-<div id="s-detail" class="scr">
-  <div class="hdr"><button class="hdr-back" onclick="goBack()">‹</button><h1 id="rd-h">Recipe</h1><span class="hdr-logo">SMART BASKET</span></div>
-  <div class="rd-hero g1" id="rd-hero"><div class="rd-hero-overlay"><h2 id="rd-title">Recipe</h2><div class="bn" id="rd-bn" style="font-family:var(--bn)"></div></div></div>
+<div id="s-detail" class="scr" style="padding-bottom:0">
+  <div class="rd-hero" id="rd-hero">
+    <div class="rd-hero-img" id="rd-hero-img"></div>
+    <div class="hdr-glass"><button class="hdr-back" onclick="goBack()"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="15 18 9 12 15 6"/></svg></button><h1 id="rd-h" style="flex:1;font-size:16px">Recipe</h1><span class="hdr-logo">unimart</span></div>
+    <div class="rd-hero-overlay"><h2 id="rd-title">Recipe</h2><div class="bn" id="rd-bn"></div></div>
+  </div>
   <div class="rd-body">
     <div class="rd-stats"><div class="rd-stat"><div class="v" id="rd-time">30</div><div class="l">min</div></div><div class="rd-stat"><div class="v" id="rd-diff">Easy</div><div class="l">difficulty</div></div><div class="rd-stat"><div class="v" id="rd-cost">৳180</div><div class="l">cost</div></div></div>
-    <div class="rd-sec"><div class="srv-row"><h3>Ingredients</h3><div class="srv-toggle"><button onclick="adjSrv(-1)">−</button><span class="srv-v" id="srv-v">4</span><button onclick="adjSrv(1)">+</button><span style="font-size:12px;color:var(--t3);margin-left:2px">servings</span></div></div><div class="rd-ing" id="rd-ings"></div></div>
-    <div class="rd-sec"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3 style="margin:0">How to Cook</h3><button class="btn btn-brand btn-sm" onclick="startCooking()">🍳 Cook</button></div><div id="rd-steps"></div></div>
-    <div class="mt-16"><button class="btn btn-ok btn-lg" onclick="addToPlan()">+ Add to My Plan</button></div>
+    <div class="rd-sec"><div class="srv-row"><h3>Ingredients</h3><div class="srv-toggle"><button onclick="adjSrv(-1)">−</button><span class="srv-v" id="srv-v">4</span><button onclick="adjSrv(1)">+</button><span style="font-size:12px;color:var(--t3);margin-left:4px;font-weight:500">servings</span></div></div><div class="rd-ing" id="rd-ings"></div></div>
+    <div class="rd-sec"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><h3 style="margin:0">How to Cook</h3><button class="btn btn-brand btn-sm" onclick="startCooking()">Start Cooking</button></div><div id="rd-steps"></div></div>
+    <div class="mt-20" style="padding-bottom:24px"><button class="btn btn-ok btn-lg" onclick="addToPlan()">+ Add to My Plan</button></div>
   </div>
 </div>
 
@@ -77,7 +153,7 @@
   <div class="cook-full">
     <div class="cook-top"><h2 id="ck-name">Cooking</h2><p id="ck-cur">Step 1 of 7</p></div>
     <div class="cook-prog" id="ck-prog"></div>
-    <div class="cook-visual" id="ck-vis">🍳</div>
+    <div class="cook-visual" id="ck-vis"></div>
     <div class="cook-card"><div class="cook-sn" id="ck-sn">Step 1</div><div class="cook-txt" id="ck-txt">...</div><div class="cook-timer" id="ck-timer"></div></div>
     <div class="cook-nav"><button class="btn btn-out" id="ck-prev" onclick="ckNav(-1)">Previous</button><button class="btn btn-brand" id="ck-next" onclick="ckNav(1)">Next Step</button></div>
   </div>
@@ -85,68 +161,86 @@
 
 <!-- ══ SHOPPING BASKET ══ -->
 <div id="s-basket" class="scr">
-  <div class="hdr"><button class="hdr-back" onclick="go('s-plan')">‹</button><h1><span class="en-only">Shopping Basket</span><span class="bn-only">বাজারের ঝুড়ি</span></h1><span class="hdr-logo">SMART BASKET</span></div>
-  <div class="search"><span class="search-ico">🔍</span><input placeholder="Search..." id="list-search" oninput="filterShoppingList()"></div>
+  <div class="hdr"><button class="hdr-back" onclick="go('s-plan')"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="15 18 9 12 15 6"/></svg></button><h1><span class="en-only">Shopping Basket</span><span class="bn-only">বাজারের ঝুড়ি</span></h1><span class="hdr-logo">unimart</span></div>
+  <div class="search"><span class="search-ico"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><input placeholder="Search items..." id="list-search" oninput="filterShoppingList()"></div>
   <div class="basket-summary"><div class="basket-s"><div class="v" id="ls-items">0</div><div class="l">Items</div></div><div class="basket-s"><div class="v" style="color:var(--ok)" id="ls-total">৳0</div><div class="l">You pay</div></div><div class="basket-s"><div class="v" style="color:var(--ok)" id="ls-under">৳0</div><div class="l">Saved</div></div></div>
   <div id="list-items"></div>
   <div class="basket-tots"><div class="tr"><span class="k">Pack costs (<span id="tot-items">0</span>)</span><span class="v" id="tot-sub">৳0</span></div><div class="tr"><span class="k">Already have</span><span class="v" style="color:var(--t3)" id="tot-pantry">−৳0</span></div><div class="tr big"><span class="k">You pay</span><span class="v g" id="tot-total">৳0</span></div><div class="tr"><span class="k">Budget left</span><span class="v g" id="tot-remain">৳0</span></div></div>
-  <div style="height:80px"></div>
-  <div class="basket-total-bar"><div class="btb-total"><div class="k">Total</div><div class="v" id="cart-btn-price">৳0</div></div><button class="btb-btn" onclick="go('s-store')">Choose Store →</button></div>
-  <div class="bnav"><button onclick="go('s-home')"><span class="ni">🏠</span>Home</button><button onclick="go('s-browse')"><span class="ni">📖</span>Recipes</button><button onclick="go('s-plan')"><span class="ni">📅</span>Plan</button><button class="on"><span class="ni">🛒</span>Basket</button><button onclick="go('s-profile')"><span class="ni">👤</span>Profile</button></div>
+  <div style="height:88px"></div>
+  <div class="basket-total-bar"><div class="btb-total"><div class="k">Total</div><div class="v" id="cart-btn-price">৳0</div></div><button class="btb-btn" onclick="go('s-store')">Choose Store &rarr;</button></div>
+  <div class="bnav">
+    <button onclick="go('s-home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</button>
+    <button onclick="go('s-browse')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Discover</button>
+    <button onclick="go('s-plan')"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Plan</button>
+    <button class="on"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Basket</button>
+    <button onclick="go('s-profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</button>
+  </div>
 </div>
 
 <!-- ══ STORE SELECTOR ══ -->
 <div id="s-store" class="scr">
-  <div class="hdr"><button class="hdr-back" onclick="go('s-basket')">‹</button><h1>Choose Store</h1><span class="hdr-logo">SMART BASKET</span></div>
-  <div style="padding:14px 16px 8px"><div style="font-size:17px;font-weight:800">Compare prices</div><div style="font-size:13px;color:var(--t2);margin-top:2px">We add items to their cart. You checkout there.</div></div>
-  <div style="padding:0 16px">
-    <div class="store-card selected" onclick="selectStore(this,'foodpanda')"><div style="display:flex;align-items:center;gap:12px"><div class="store-logo" style="background:linear-gradient(135deg,#D70F64,#FF2B85)">fp</div><div style="flex:1"><div style="font-size:16px;font-weight:700">Foodpanda</div><div style="font-size:12px;color:var(--t2)">30–45 min</div></div><div style="text-align:right"><div style="font-size:18px;font-weight:900">৳2,920</div><div style="font-size:11px;color:var(--t3)">incl. ৳49 delivery</div></div></div></div>
-    <div class="store-card" onclick="selectStore(this,'unimart')"><div style="display:flex;align-items:center;gap:12px"><div class="store-logo" style="background:linear-gradient(135deg,#D32F2F,#F44336)">UNI</div><div style="flex:1"><div style="font-size:16px;font-weight:700">Unimart</div><div style="font-size:12px;color:var(--t2)">2–4 hours</div></div><div style="text-align:right"><div style="font-size:18px;font-weight:900;color:var(--ok)">৳2,840</div><div style="font-size:11px;color:var(--ok);font-weight:600">Cheapest</div></div></div></div>
-    <div class="store-card" onclick="selectStore(this,'shwapno')"><div style="display:flex;align-items:center;gap:12px"><div class="store-logo" style="background:linear-gradient(135deg,#F57C00,#FF9800)">SW</div><div style="flex:1"><div style="font-size:16px;font-weight:700">Shwapno</div><div style="font-size:12px;color:var(--t2)">3–5 hours</div></div><div style="text-align:right"><div style="font-size:18px;font-weight:900">৳2,910</div></div></div></div>
-    <div class="store-card" onclick="selectStore(this,'meena')"><div style="display:flex;align-items:center;gap:12px"><div class="store-logo" style="background:linear-gradient(135deg,#1B5E20,#388E3C)">MB</div><div style="flex:1"><div style="font-size:16px;font-weight:700">Meena Bazar</div><div style="font-size:12px;color:var(--t2)">2–4 hours</div></div><div style="text-align:right"><div style="font-size:18px;font-weight:900">৳2,960</div></div></div></div>
+  <div class="hdr"><button class="hdr-back" onclick="go('s-basket')"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="15 18 9 12 15 6"/></svg></button><h1>Choose Store</h1><span class="hdr-logo">unimart</span></div>
+  <div style="padding:24px 24px 14px"><div style="font-size:24px;font-weight:900;letter-spacing:-.03em">Compare prices</div><div style="font-size:14px;color:var(--t2);margin-top:6px">We add items to their cart. You checkout there.</div></div>
+  <div style="padding:0 20px">
+    <div class="store-card selected" onclick="selectStore(this,'foodpanda')"><div style="display:flex;align-items:center;gap:14px"><div class="store-logo" style="background:linear-gradient(135deg,#D70F64,#FF2B85)">fp</div><div style="flex:1"><div style="font-size:16px;font-weight:800">Foodpanda</div><div style="font-size:12px;color:var(--t2);margin-top:2px">30–45 min delivery</div></div><div style="text-align:right"><div style="font-size:20px;font-weight:900;letter-spacing:-.03em">৳2,920</div><div style="font-size:11px;color:var(--t3)">incl. ৳49 delivery</div></div></div></div>
+    <div class="store-card" onclick="selectStore(this,'unimart')"><div style="display:flex;align-items:center;gap:14px"><div class="store-logo" style="background:linear-gradient(135deg,#C94520,#E8592A)">UNI</div><div style="flex:1"><div style="font-size:16px;font-weight:800">Unimart</div><div style="font-size:12px;color:var(--t2);margin-top:2px">2–4 hours delivery</div></div><div style="text-align:right"><div style="font-size:20px;font-weight:900;color:var(--ok);letter-spacing:-.03em">৳2,840</div><div style="font-size:12px;color:var(--ok);font-weight:700">Cheapest</div></div></div></div>
+    <div class="store-card" onclick="selectStore(this,'shwapno')"><div style="display:flex;align-items:center;gap:14px"><div class="store-logo" style="background:linear-gradient(135deg,#F57C00,#FF9800)">SW</div><div style="flex:1"><div style="font-size:16px;font-weight:800">Shwapno</div><div style="font-size:12px;color:var(--t2);margin-top:2px">3–5 hours delivery</div></div><div style="text-align:right"><div style="font-size:20px;font-weight:900;letter-spacing:-.03em">৳2,910</div></div></div></div>
+    <div class="store-card" onclick="selectStore(this,'meena')"><div style="display:flex;align-items:center;gap:14px"><div class="store-logo" style="background:linear-gradient(135deg,#1B5E20,#388E3C)">MB</div><div style="flex:1"><div style="font-size:16px;font-weight:800">Meena Bazar</div><div style="font-size:12px;color:var(--t2);margin-top:2px">2–4 hours delivery</div></div><div style="text-align:right"><div style="font-size:20px;font-weight:900;letter-spacing:-.03em">৳2,960</div></div></div></div>
   </div>
-  <div style="padding:16px"><button class="btn btn-brand btn-lg" onclick="sendToStore()" id="send-btn">Send to Foodpanda →</button></div>
+  <div style="padding:20px"><button class="btn btn-dark btn-lg" onclick="sendToStore()" id="send-btn">Send to Foodpanda &rarr;</button></div>
 </div>
 
 <!-- ══ HANDOFF ══ -->
 <div id="s-handoff" class="scr">
-  <div class="hdr"><h1>Save & Send</h1><span class="hdr-logo">SMART BASKET</span></div>
-  <div style="text-align:center;padding:24px 20px 12px"><div style="font-size:48px">🛒</div><h2 style="font-size:18px;font-weight:800;margin-top:8px">Send to <span id="handoff-store">Foodpanda</span></h2><p style="font-size:14px;color:var(--t2);margin-top:4px">Save your plan with a free account</p></div>
-  <div style="padding:0 20px"><div class="auth-field"><label class="auth-lbl">Name</label><input class="auth-inp" value="Fatima Ahmed"></div><div class="auth-field"><label class="auth-lbl">Phone</label><input class="auth-inp" type="tel" placeholder="01XXXXXXXXX"></div><button class="btn btn-brand mt-8" onclick="completeHandoff()">Create Account & Send</button><div class="auth-div">or</div><div class="auth-social"><button onclick="completeHandoff()">📱 OTP</button><button onclick="completeHandoff()"><b>G</b> Google</button></div><button class="btn btn-ghost mt-12" onclick="completeHandoff()">Skip — send without account</button></div>
+  <div class="hdr"><h1>Save & Send</h1><span class="hdr-logo">unimart</span></div>
+  <div style="text-align:center;padding:48px 24px 24px"><div style="width:64px;height:64px;border-radius:50%;background:var(--brand-lt);display:flex;align-items:center;justify-content:center;margin:0 auto"><svg viewBox="0 0 24 24" style="width:32px;height:32px;stroke:var(--brand);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><h2 style="font-size:26px;font-weight:900;margin-top:20px;letter-spacing:-.04em">Send to <span id="handoff-store">Foodpanda</span></h2><p style="font-size:14px;color:var(--t2);margin-top:8px">Save your plan with a free account</p></div>
+  <div style="padding:0 24px"><div class="auth-field"><label class="auth-lbl">Name</label><input class="auth-inp" value="Fatima Ahmed"></div><div class="auth-field"><label class="auth-lbl">Phone</label><input class="auth-inp" type="tel" placeholder="01XXXXXXXXX"></div><button class="btn btn-brand mt-8" onclick="completeHandoff()">Create Account & Send</button><div class="auth-div">or</div><div class="auth-social"><button onclick="completeHandoff()">OTP</button><button onclick="completeHandoff()">Google</button></div><button class="btn btn-ghost mt-12" onclick="completeHandoff()">Skip — send without account</button></div>
 </div>
 
 <!-- ══ SENT ══ -->
 <div id="s-sent" class="scr">
-  <div class="hdr" style="background:var(--ok)"><h1>Sent!</h1><span class="hdr-logo">SMART BASKET</span></div>
-  <div style="text-align:center;padding:28px 20px 16px"><div style="font-size:64px">✅</div><h2 style="font-size:22px;font-weight:900;margin-top:10px">Sent to <span id="sent-store">Foodpanda</span>!</h2><p style="font-size:14px;color:var(--t2);margin-top:4px">Open their app to checkout & get delivery</p></div>
-  <div style="padding:0 16px"><button class="btn btn-brand btn-lg" onclick="toast('Opening store app...')">Open <span id="sent-store2">Foodpanda</span> →</button></div>
-  <div style="margin:16px;background:#fff;border-radius:var(--r-lg);padding:18px;box-shadow:var(--sh)"><div style="font-size:13px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Meanwhile in Smart Basket</div>
-    <div style="display:flex;gap:10px;align-items:center;padding:8px 0;cursor:pointer" onclick="go('s-today')"><span style="font-size:28px">🍳</span><div style="flex:1"><div style="font-size:15px;font-weight:600">Start cooking today's meals</div><div style="font-size:12px;color:var(--t2)">Step-by-step recipes ready</div></div><span style="font-size:18px;color:var(--t3)">›</span></div>
+  <div class="hdr" style="background:var(--ok)"><h1>Sent!</h1></div>
+  <div style="text-align:center;padding:56px 24px 28px"><div style="width:72px;height:72px;border-radius:50%;background:var(--ok-lt);display:flex;align-items:center;justify-content:center;margin:0 auto"><svg viewBox="0 0 24 24" style="width:36px;height:36px;stroke:var(--ok);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="font-size:28px;font-weight:900;margin-top:20px;letter-spacing:-.04em">Sent to <span id="sent-store">Foodpanda</span></h2><p style="font-size:14px;color:var(--t2);margin-top:8px">Open their app to checkout & get delivery</p></div>
+  <div style="padding:0 24px"><button class="btn btn-brand btn-lg" onclick="toast('Opening store app...')">Open <span id="sent-store2">Foodpanda</span></button></div>
+  <div style="margin:28px 20px;background:#fff;border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh)"><div style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px">Meanwhile</div>
+    <div style="display:flex;gap:14px;align-items:center;padding:10px 0;cursor:pointer" onclick="go('s-today')"><div style="width:44px;height:44px;border-radius:var(--r-sm);background:var(--brand-lt);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--brand);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z"/></svg></div><div style="flex:1"><div style="font-size:16px;font-weight:800;letter-spacing:-.02em">Start cooking today's meals</div><div style="font-size:13px;color:var(--t2);margin-top:2px">Step-by-step recipes ready</div></div><span style="font-size:18px;color:var(--t3)">&rsaquo;</span></div>
   </div>
-  <div style="padding:0 16px"><button class="btn btn-out" onclick="go('s-today')">See Today's Meals</button></div>
+  <div style="padding:0 20px"><button class="btn btn-out" onclick="go('s-today')">See Today's Meals</button></div>
 </div>
 
 <!-- ══ TODAY'S MEALS ══ -->
 <div id="s-today" class="scr">
-  <div class="hdr"><h1><span class="en-only">Today's Meals</span><span class="bn-only">আজকের খাবার</span></h1><span class="hdr-logo">SMART BASKET</span></div>
-  <div style="padding:14px 16px 6px"><div style="font-size:20px;font-weight:900">Saturday</div><div style="font-size:13px;color:var(--t2)">3 meals · ingredients ready</div></div>
-  <div class="today-card"><div class="today-card-img" style="background:url(https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=260&fit=crop) center/cover"><div class="today-card-overlay"><div class="today-card-slot">Breakfast</div><div class="today-card-name">Paratha & Egg Bhaji</div></div></div><div class="today-card-actions"><button class="btn btn-brand btn-sm" style="flex:1" onclick="startCooking('paratha_egg')">🍳 Cook</button><button class="btn btn-out btn-sm" style="flex:1" onclick="markDone(this)">✓ Done</button></div></div>
-  <div class="today-card"><div class="today-card-img" style="background:url(https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&h=260&fit=crop) center/cover"><div class="today-card-overlay"><div class="today-card-slot">Lunch</div><div class="today-card-name">Chicken Curry & Rice</div></div></div><div class="today-card-actions"><button class="btn btn-brand btn-sm" style="flex:1" onclick="startCooking('chicken_curry')">🍳 Cook</button><button class="btn btn-out btn-sm" style="flex:1" onclick="markDone(this)">✓ Done</button></div></div>
-  <div class="today-card"><div class="today-card-img" style="background:url(https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=260&fit=crop) center/cover"><div class="today-card-overlay"><div class="today-card-slot">Dinner</div><div class="today-card-name">Dal & Mixed Veg</div></div></div><div class="today-card-actions"><button class="btn btn-brand btn-sm" style="flex:1" onclick="startCooking('dal_veg')">🍳 Cook</button><button class="btn btn-out btn-sm" style="flex:1" onclick="markDone(this)">✓ Done</button></div></div>
-  <div style="padding:16px"><button class="btn btn-out" onclick="go('s-plan')">See Full Week</button></div>
-  <div class="bnav"><button class="on"><span class="ni">🏠</span>Home</button><button onclick="go('s-browse')"><span class="ni">📖</span>Recipes</button><button onclick="go('s-plan')"><span class="ni">📅</span>Plan</button><button onclick="go('s-basket')"><span class="ni">🛒</span>Basket</button><button onclick="go('s-profile')"><span class="ni">👤</span>Profile</button></div>
+  <div class="hdr"><h1><span class="en-only">Today's Meals</span><span class="bn-only">আজকের খাবার</span></h1><span class="hdr-logo">unimart</span></div>
+  <div style="padding:24px 24px 12px"><div style="font-size:26px;font-weight:900;letter-spacing:-.04em">Saturday</div><div style="font-size:14px;color:var(--t2);margin-top:4px">3 meals &middot; ingredients ready</div></div>
+  <div class="today-card"><div class="today-card-img" style="background-image:url(https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop)"><div class="today-card-overlay"><div class="today-card-slot">Breakfast</div><div class="today-card-name">Paratha & Egg Bhaji</div></div></div><div class="today-card-actions"><button class="btn btn-brand btn-sm" style="flex:1" onclick="startCooking('paratha_egg')">Start Cooking</button><button class="btn btn-out btn-sm" style="flex:1" onclick="markDone(this)">Done</button></div></div>
+  <div class="today-card"><div class="today-card-img" style="background-image:url(https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&h=300&fit=crop)"><div class="today-card-overlay"><div class="today-card-slot">Lunch</div><div class="today-card-name">Chicken Curry & Rice</div></div></div><div class="today-card-actions"><button class="btn btn-brand btn-sm" style="flex:1" onclick="startCooking('chicken_curry')">Start Cooking</button><button class="btn btn-out btn-sm" style="flex:1" onclick="markDone(this)">Done</button></div></div>
+  <div class="today-card"><div class="today-card-img" style="background-image:url(https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop)"><div class="today-card-overlay"><div class="today-card-slot">Dinner</div><div class="today-card-name">Dal & Mixed Veg</div></div></div><div class="today-card-actions"><button class="btn btn-brand btn-sm" style="flex:1" onclick="startCooking('dal_veg')">Start Cooking</button><button class="btn btn-out btn-sm" style="flex:1" onclick="markDone(this)">Done</button></div></div>
+  <div style="padding:24px 20px"><button class="btn btn-out" onclick="go('s-plan')">See Full Week</button></div>
+  <div class="bnav">
+    <button class="on"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</button>
+    <button onclick="go('s-browse')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Discover</button>
+    <button onclick="go('s-plan')"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Plan</button>
+    <button onclick="go('s-basket')"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Basket</button>
+    <button onclick="go('s-profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</button>
+  </div>
 </div>
 
 <!-- ══ PROFILE ══ -->
 <div id="s-profile" class="scr">
-  <div class="hdr"><h1>Profile</h1><span class="hdr-logo">SMART BASKET</span></div>
-  <div class="prof-card"><div class="prof-av">FA</div><div style="text-align:center;font-size:18px;font-weight:700">Fatima Ahmed</div><div style="text-align:center;font-size:13px;color:var(--t2)">fatima@example.com</div></div>
+  <div class="hdr"><h1>Profile</h1><span class="hdr-logo">unimart</span></div>
+  <div class="prof-card"><div class="prof-av">FA</div><div style="text-align:center;font-size:20px;font-weight:800;letter-spacing:-.02em">Fatima Ahmed</div><div style="text-align:center;font-size:14px;color:var(--t2);margin-top:4px">fatima@example.com</div></div>
   <div class="prof-sec">Household</div>
-  <div class="prof-card"><div class="prof-row"><span style="color:var(--t2)">Size</span><span style="font-weight:700">4 people</span></div><div class="prof-row"><span style="color:var(--t2)">Budget</span><span style="font-weight:700;color:var(--brand)">৳3,000/wk</span></div></div>
-  <div class="prof-sec">Actions</div>
-  <div class="prof-menu"><div class="prof-mi" onclick="go('s-home')"><span>🏠</span> Home</div><div class="prof-mi" onclick="go('s-plan')"><span>📅</span> Meal Plan</div><div class="prof-mi" onclick="go('s-basket')"><span>🛒</span> Basket</div><div class="prof-mi" onclick="go('s-setup')"><span>⚙️</span> Preferences</div></div>
-  <div style="padding:16px;text-align:center;font-size:11px;color:var(--t3)">Smart Basket v3 · Cookspace</div>
-  <div class="bnav"><button onclick="go('s-home')"><span class="ni">🏠</span>Home</button><button onclick="go('s-browse')"><span class="ni">📖</span>Recipes</button><button onclick="go('s-plan')"><span class="ni">📅</span>Plan</button><button onclick="go('s-basket')"><span class="ni">🛒</span>Basket</button><button class="on"><span class="ni">👤</span>Profile</button></div>
+  <div class="prof-card"><div class="prof-row"><span style="color:var(--t2);font-weight:500">Size</span><span style="font-weight:800">4 people</span></div><div class="prof-row"><span style="color:var(--t2);font-weight:500">Budget</span><span style="font-weight:800;color:var(--brand)">৳3,000/wk</span></div></div>
+  <div class="prof-sec">Quick Actions</div>
+  <div class="prof-menu"><div class="prof-mi" onclick="go('s-home')"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--t2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home</div><div class="prof-mi" onclick="go('s-plan')"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--t2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Meal Plan</div><div class="prof-mi" onclick="go('s-basket')"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--t2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg> Basket</div><div class="prof-mi" onclick="go('s-setup')"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--t2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Preferences</div></div>
+  <div style="padding:28px;text-align:center;font-size:12px;color:var(--t3);font-weight:500">Smart Basket v7 &middot; Powered by unimart</div>
+  <div class="bnav">
+    <button onclick="go('s-home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</button>
+    <button onclick="go('s-browse')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Discover</button>
+    <button onclick="go('s-plan')"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Plan</button>
+    <button onclick="go('s-basket')"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Basket</button>
+    <button class="on"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</button>
+  </div>
 </div>
 
 <!-- ══ MODALS ══ -->
