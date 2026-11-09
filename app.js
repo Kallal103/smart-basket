@@ -55,7 +55,7 @@ function go(id) {
   if (id === 's-plan') {
     if (state.plan.length === 0) {
       $('plan-day-tabs').innerHTML = '';
-      $('plan-days').innerHTML = '<div style="text-align:center;padding:64px 24px;color:var(--t3)"><div style="width:56px;height:56px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;margin:0 auto"><svg viewBox="0 0 24 24" style="width:28px;height:28px;stroke:var(--t3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div style="font-size:18px;font-weight:800;color:var(--t2);letter-spacing:-.02em;margin-top:20px">No plan yet</div><div style="font-size:14px;margin-top:6px">Create a personalized meal plan</div><button class="btn btn-brand mt-24" style="max-width:200px;margin:24px auto 0" onclick="go(\'s-setup\')">Plan my week</button></div>';
+      $('plan-days').innerHTML = '<div style="text-align:center;padding:64px 24px;color:var(--t3)"><div style="width:56px;height:56px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;margin:0 auto"><svg viewBox="0 0 24 24" style="width:28px;height:28px;stroke:var(--t3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div style="font-size:var(--t-lg);font-weight:var(--w-bold);color:var(--t2);margin-top:var(--s-24)">No plan yet</div><div style="font-size:var(--t-sm);margin-top:var(--s-8)">Create a personalized meal plan</div><button class="btn btn-brand mt-24" style="max-width:200px;margin:var(--s-24) auto 0" onclick="go(\'s-setup\')">Plan my week</button></div>';
       $('bb-amt').innerHTML = '৳0';
       $('bb-badge').textContent = 'No plan';
       $('bb-fill').style.width = '0';
@@ -65,7 +65,7 @@ function go(id) {
   }
   if (id === 's-basket') {
     if (state.plan.length === 0) {
-      $('list-items').innerHTML = '<div style="text-align:center;padding:64px 24px;color:var(--t3)"><div style="width:56px;height:56px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;margin:0 auto"><svg viewBox="0 0 24 24" style="width:28px;height:28px;stroke:var(--t3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><div style="font-size:18px;font-weight:800;color:var(--t2);letter-spacing:-.02em;margin-top:20px">Your basket is empty</div><div style="font-size:14px;margin-top:6px">Create a meal plan first</div><button class="btn btn-brand mt-24" style="max-width:200px;margin:24px auto 0" onclick="go(\'s-setup\')">Plan my week</button></div>';
+      $('list-items').innerHTML = '<div style="text-align:center;padding:64px 24px;color:var(--t3)"><div style="width:56px;height:56px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;margin:0 auto"><svg viewBox="0 0 24 24" style="width:28px;height:28px;stroke:var(--t3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><div style="font-size:var(--t-lg);font-weight:var(--w-bold);color:var(--t2);margin-top:var(--s-24)">Your basket is empty</div><div style="font-size:var(--t-sm);margin-top:var(--s-8)">Create a meal plan first</div><button class="btn btn-brand mt-24" style="max-width:200px;margin:var(--s-24) auto 0" onclick="go(\'s-setup\')">Plan my week</button></div>';
     } else {
       renderShoppingList();
     }
@@ -270,8 +270,6 @@ function renderShoppingList() {
           <div class="bi-name">${item.name}</div>
           <div class="bi-detail"><b>${item.brand}</b> &middot; ${Engine.fmtQty(item.packSize * item.packs, item.packUnit)}</div>
           <div class="bi-src">For: ${item.usedIn.slice(0, 2).join(', ')}${item.usedIn.length > 2 ? ' +' + (item.usedIn.length - 2) : ''}</div>
-          ${item.fresh ? '<div style="font-size:11px;color:var(--warn);margin-top:2px;font-weight:600">Buy fresh</div>' : ''}
-          ${item.isStaple ? '<div style="font-size:11px;color:var(--warn);margin-top:2px;font-weight:500">Tap to toggle &ldquo;already have&rdquo;</div>' : ''}
         </div>
         <div class="bi-rt">
           <div class="bi-qty">${Engine.fmtQty(item.needed, item.unit)}</div>
@@ -348,8 +346,6 @@ function renderRecipeGrid(query) {
           <span class="discover-card-price">${Engine.fmt(cost)}</span>
           <span class="discover-card-dot">&middot;</span>
           <span class="discover-card-detail">${r.time} min</span>
-          <span class="discover-card-dot">&middot;</span>
-          <span class="discover-card-detail">${r.diff}</span>
         </div>
       </div>
     </div>`;
