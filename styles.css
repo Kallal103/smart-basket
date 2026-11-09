@@ -178,7 +178,7 @@ body{font-family:var(--font);background:#343538;color:var(--text);-webkit-font-s
 .featured-meta{display:flex;gap:var(--s-12);margin-top:var(--s-8);font-size:var(--t-sm);color:rgba(255,255,255,.7)}
 
 /* ══════════════════════════════════════════════
-   BROWSE / DISCOVER — Modern layout
+   BROWSE / DISCOVER — Single-column card layout
    ══════════════════════════════════════════════ */
 .browse-top{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border);padding-bottom:var(--s-4)}
 .browse-bar{display:flex;align-items:center;gap:var(--s-8);padding:var(--s-12) var(--s-16) var(--s-4)}
@@ -189,10 +189,30 @@ body{font-family:var(--font);background:#343538;color:var(--text);-webkit-font-s
 .browse-search input::placeholder{color:var(--t3)}
 .browse-count{padding:var(--s-12) var(--s-16) var(--s-4);font-size:var(--t-xs);color:var(--t2);font-weight:var(--w-semi)}
 
-/* ══════════════════════════════════════════════
-   FOOD CARDS — Mixed layout
-   ══════════════════════════════════════════════ */
+/* Single-column discover list */
+.discover-list{display:flex;flex-direction:column;gap:var(--s-8);padding:0 var(--s-16)}
+
+/* Discover card — full-width, large photo */
+.discover-card{border-radius:var(--r-md);overflow:hidden;background:#fff;box-shadow:var(--sh);cursor:pointer}
+.discover-card:active{transform:scale(.98)}
+.discover-card-img{width:100%;height:200px;background:var(--bg2);position:relative;overflow:hidden}
+.discover-card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.discover-card-badge{position:absolute;top:var(--s-8);right:var(--s-8)}
+.discover-card-time{position:absolute;bottom:var(--s-8);left:var(--s-8);background:rgba(0,0,0,.55);color:#fff;padding:2px var(--s-8);border-radius:var(--r-sm);font-size:var(--t-xs);font-weight:var(--w-bold)}
+.discover-card-body{padding:var(--s-12) var(--s-16)}
+.discover-card-name{font-size:var(--t-md);font-weight:var(--w-bold);line-height:1.3}
+.discover-card-bn{font-size:var(--t-xs);color:var(--t2);margin-top:2px;font-family:var(--bn)}
+.discover-card-meta{display:flex;align-items:center;gap:var(--s-8);margin-top:var(--s-8)}
+.discover-card-price{font-size:var(--t-sm);font-weight:var(--w-bold);color:var(--brand)}
+.discover-card-dot{color:var(--t3);font-size:var(--t-xs)}
+.discover-card-detail{font-size:var(--t-xs);color:var(--t2)}
+
+/* Keep old food-grid classes for backward compat but hidden */
 .food-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-8);padding:0 var(--s-16)}
+
+/* ══════════════════════════════════════════════
+   FOOD CARDS — Legacy (kept for promo/list if needed)
+   ══════════════════════════════════════════════ */
 
 /* Full-width feature card */
 .food-promo{grid-column:1/-1;border-radius:var(--r-md);overflow:hidden;height:180px;position:relative;cursor:pointer}
@@ -203,7 +223,7 @@ body{font-family:var(--font);background:#343538;color:var(--text);-webkit-font-s
 .food-promo-info h3{font-size:var(--t-lg);font-weight:var(--w-bold)}
 .food-promo-info p{font-size:var(--t-xs);opacity:.7;margin-top:2px}
 
-/* Single-column list card (alternates with grid) */
+/* Single-column list card */
 .food-list{grid-column:1/-1;display:flex;gap:var(--s-12);background:#fff;border-radius:var(--r-md);box-shadow:var(--sh);padding:var(--s-12);cursor:pointer;align-items:center}
 .food-list:active{transform:scale(.98)}
 .food-list-img{width:88px;height:88px;border-radius:var(--r-sm);flex-shrink:0;background:center/cover;position:relative;overflow:hidden}
@@ -244,8 +264,47 @@ body{font-family:var(--font);background:#343538;color:var(--text);-webkit-font-s
 .chip.on{border-color:var(--text);background:var(--text);color:#fff}
 
 /* ══════════════════════════════════════════════
-   MEAL PLAN
+   MEAL PLAN — Day tabs + large meal cards
    ══════════════════════════════════════════════ */
+
+/* Horizontal day tabs */
+.plan-day-tabs{display:flex;gap:var(--s-4);padding:var(--s-8) var(--s-16);overflow-x:auto;scrollbar-width:none;background:#fff;border-bottom:1px solid var(--border)}
+.plan-day-tabs::-webkit-scrollbar{display:none}
+.plan-day-tab{padding:var(--s-8) var(--s-12);border-radius:var(--r-sm);border:0;background:var(--bg2);font-size:var(--t-xs);font-weight:var(--w-bold);font-family:var(--font);cursor:pointer;white-space:nowrap;flex-shrink:0;color:var(--t2);text-align:center;min-width:56px;transition:all .2s ease}
+.plan-day-tab .tab-day{font-size:var(--t-sm);font-weight:var(--w-bold);display:block}
+.plan-day-tab .tab-date{font-size:var(--t-xs);color:var(--t3);display:block;margin-top:2px}
+.plan-day-tab.on{background:var(--text);color:#fff}
+.plan-day-tab.on .tab-date{color:rgba(255,255,255,.5)}
+.plan-day-tab:active{transform:scale(.95)}
+
+/* Day cost label */
+.plan-day-cost{padding:var(--s-8) var(--s-16);display:flex;justify-content:space-between;align-items:center}
+.plan-day-cost .day-label{font-size:var(--t-md);font-weight:var(--w-bold)}
+.plan-day-cost .day-total{font-size:var(--t-sm);font-weight:var(--w-bold);color:var(--ok);font-variant-numeric:tabular-nums}
+
+/* Large meal card (one per slot) */
+.plan-meal-card{margin:var(--s-8) var(--s-16);border-radius:var(--r-md);overflow:hidden;background:#fff;box-shadow:var(--sh)}
+.plan-meal-card:active{transform:scale(.98)}
+.plan-meal-photo{width:100%;height:180px;position:relative;background:var(--bg2);overflow:hidden;cursor:pointer}
+.plan-meal-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.plan-meal-photo-empty{width:100%;height:180px;display:flex;align-items:center;justify-content:center;background:var(--bg2);cursor:pointer}
+.plan-meal-gradient{position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(transparent,rgba(0,0,0,.6));pointer-events:none}
+.plan-meal-overlay{position:absolute;bottom:0;left:0;right:0;padding:var(--s-12) var(--s-16);color:#fff;z-index:2}
+.plan-meal-slot-label{font-size:var(--t-xs);font-weight:var(--w-bold);text-transform:uppercase;letter-spacing:.5px;opacity:.8}
+.plan-meal-name-overlay{font-size:var(--t-lg);font-weight:var(--w-bold);margin-top:var(--s-4)}
+.plan-meal-actions{padding:var(--s-8) var(--s-16);display:flex;align-items:center;gap:var(--s-8)}
+.plan-meal-price-tag{font-size:var(--t-sm);font-weight:var(--w-bold);color:var(--ok);font-variant-numeric:tabular-nums;flex:1}
+.plan-meal-bn-label{font-size:var(--t-xs);color:var(--t2);font-family:var(--bn);flex:1}
+.plan-meal-swap-btn{font-size:var(--t-xs);color:#fff;padding:var(--s-4) var(--s-12);border-radius:var(--r-lg);font-weight:var(--w-bold);background:var(--text);cursor:pointer;border:0;flex-shrink:0}
+.plan-meal-swap-btn:active{opacity:.7}
+
+/* Empty meal card placeholder */
+.plan-empty-card{margin:var(--s-8) var(--s-16);border-radius:var(--r-md);border:2px dashed var(--border);background:var(--bg2);padding:var(--s-24) var(--s-16);text-align:center;cursor:pointer}
+.plan-empty-card:active{background:var(--border)}
+.plan-empty-slot{font-size:var(--t-xs);font-weight:var(--w-bold);color:var(--t3);text-transform:uppercase;letter-spacing:.5px}
+.plan-empty-label{font-size:var(--t-sm);color:var(--t3);margin-top:var(--s-8)}
+
+/* Legacy plan classes (kept for compat) */
 .plan-day{margin:var(--s-8) var(--s-16);background:#fff;border-radius:var(--r-md);box-shadow:var(--sh);overflow:hidden}
 .plan-day-h{padding:var(--s-12) var(--s-16);display:flex;justify-content:space-between;align-items:center;background:var(--bg2)}
 .plan-day-h .day-name{font-weight:var(--w-bold);font-size:var(--t-sm)}
@@ -271,19 +330,25 @@ body{font-family:var(--font);background:#343538;color:var(--text);-webkit-font-s
 .bbar-fill.ok{background:var(--ok)}.bbar-fill.over{background:#DC2626}
 
 /* ══════════════════════════════════════════════
-   RECIPE DETAIL
+   RECIPE DETAIL — Modernized
    ══════════════════════════════════════════════ */
 .rd-hero{height:280px;position:relative;overflow:hidden}
 .rd-hero-img{position:absolute;inset:0;background:center/cover}
-.rd-hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(0,0,0,.7))}
-.rd-hero-overlay{position:absolute;bottom:0;left:0;right:0;padding:var(--s-16);color:#fff;z-index:2}
-.rd-hero-overlay h2{font-size:var(--t-xl);font-weight:var(--w-bold)}
-.rd-hero-overlay .bn{font-size:var(--t-sm);opacity:.7;font-family:var(--bn);margin-top:var(--s-4)}
+.rd-hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(0,0,0,.3))}
 .rd-body{padding:var(--s-16)}
-.rd-stats{display:flex;gap:var(--s-8);margin-bottom:var(--s-24)}
-.rd-stat{flex:1;padding:var(--s-12) var(--s-8);background:var(--bg2);border-radius:var(--r-sm);text-align:center}
-.rd-stat .v{font-size:var(--t-lg);font-weight:var(--w-bold)}
-.rd-stat .l{font-size:var(--t-xs);color:var(--t3);margin-top:2px}
+
+/* Title block below hero */
+.rd-title-block{margin-bottom:var(--s-12)}
+.rd-title-text{font-size:var(--t-xl);font-weight:var(--w-bold);line-height:1.15}
+.rd-bn-text{font-size:var(--t-sm);color:var(--t2);font-family:var(--bn);margin-top:var(--s-4)}
+
+/* Horizontal stat chips */
+.rd-chips{display:flex;gap:var(--s-8);margin-bottom:var(--s-24);overflow-x:auto;scrollbar-width:none}
+.rd-chips::-webkit-scrollbar{display:none}
+.rd-chip{display:inline-flex;align-items:center;gap:var(--s-4);padding:var(--s-8) var(--s-12);border-radius:var(--r-lg);background:var(--bg2);font-size:var(--t-sm);font-weight:var(--w-semi);color:var(--t2);white-space:nowrap;flex-shrink:0}
+.rd-chip svg{flex-shrink:0}
+.rd-chip-price{background:var(--ok-lt);color:var(--ok);font-weight:var(--w-bold)}
+
 .rd-sec{margin-top:var(--s-24)}
 .rd-sec h3{font-size:var(--t-lg);font-weight:var(--w-bold);margin-bottom:var(--s-12)}
 .srv-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-12)}
@@ -291,20 +356,32 @@ body{font-family:var(--font);background:#343538;color:var(--text);-webkit-font-s
 .srv-toggle button{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);background:#fff;font-size:var(--t-md);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--brand)}
 .srv-toggle button:active{transform:scale(.88)}
 .srv-toggle .srv-v{font-size:var(--t-lg);font-weight:var(--w-bold);min-width:28px;text-align:center}
-.rd-ing{background:#fff;border-radius:var(--r-md);border:1.5px solid var(--border)}
-.rd-ing-row{padding:var(--s-12) var(--s-16);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bg2)}
-.rd-ing-row:last-child{border:0}
-.rd-ing-name{font-size:var(--t-sm)}
-.rd-ing-qty{font-size:var(--t-sm);color:var(--t2);font-weight:var(--w-semi);font-variant-numeric:tabular-nums}
 
-/* Cooking steps — numbered */
-.cook-step{background:#fff;border-radius:var(--r-md);box-shadow:var(--sh);margin-bottom:var(--s-8);overflow:hidden;cursor:pointer}
-.cook-step:active{transform:scale(.98)}
-.cook-step-num{width:32px;height:32px;border-radius:50%;background:var(--text);color:#fff;display:flex;align-items:center;justify-content:center;font-size:var(--t-sm);font-weight:var(--w-bold);flex-shrink:0}
-.cook-step-body{padding:var(--s-16);display:flex;align-items:flex-start;gap:var(--s-12)}
-.cook-step-txt{font-size:var(--t-sm);line-height:1.5;color:var(--t2);flex:1}
-.cook-step.done{opacity:.3}
-.cook-step.done .cook-step-num{background:var(--ok)}
+/* Ingredient rows with checkboxes and alternating bg */
+.rd-ing{background:#fff;border-radius:var(--r-md);border:1.5px solid var(--border);overflow:hidden}
+.rd-ing-row{padding:var(--s-12) var(--s-16);display:flex;align-items:center;gap:var(--s-12);border-bottom:1px solid var(--bg2)}
+.rd-ing-row:last-child{border:0}
+.rd-ing-row:nth-child(even){background:var(--bg2)}
+.rd-ing-chk{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:all .15s ease}
+.rd-ing-chk.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.rd-ing-name{font-size:var(--t-sm);flex:1}
+.rd-ing-qty{font-size:var(--t-sm);color:var(--t2);font-weight:var(--w-semi);font-variant-numeric:tabular-nums;flex-shrink:0}
+
+/* Timeline steps */
+.rd-timeline{position:relative;padding-left:var(--s-32)}
+.rd-timeline::before{content:'';position:absolute;left:var(--s-12);top:var(--s-16);bottom:var(--s-16);width:2px;background:var(--border)}
+.rd-step{position:relative;padding:var(--s-12) 0;cursor:pointer}
+.rd-step:last-child{padding-bottom:0}
+.rd-step-num{position:absolute;left:calc(-1 * var(--s-32) + var(--s-4));top:var(--s-12);width:var(--s-16);height:var(--s-16);border-radius:50%;background:var(--text);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:var(--w-bold);z-index:2;border:2px solid #fff}
+.rd-step-txt{font-size:var(--t-sm);line-height:1.55;color:var(--t2)}
+.rd-step.done .rd-step-num{background:var(--ok)}
+.rd-step.done .rd-step-txt{opacity:.35;text-decoration:line-through}
+
+/* Sticky add-to-plan button */
+.rd-sticky-btn{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:400px;padding:var(--s-12) var(--s-16);background:rgba(255,255,255,.95);border-top:1px solid var(--border);z-index:150}
+
+/* Legacy overlay (hidden but kept for compat) */
+.rd-hero-overlay{display:none}
 
 /* ══════════════════════════════════════════════
    COOKING MODE
@@ -323,6 +400,15 @@ body{font-family:var(--font);background:#343538;color:var(--text);-webkit-font-s
 .cook-timer b{font-size:var(--t-lg);color:var(--brand);font-variant-numeric:tabular-nums}
 .cook-nav{display:flex;gap:var(--s-8);padding:var(--s-12) var(--s-16) var(--s-16);background:#fff}
 .cook-nav .btn{flex:1}
+
+/* Legacy cooking step cards (still used in old detail) */
+.cook-step{background:#fff;border-radius:var(--r-md);box-shadow:var(--sh);margin-bottom:var(--s-8);overflow:hidden;cursor:pointer}
+.cook-step:active{transform:scale(.98)}
+.cook-step-num{width:32px;height:32px;border-radius:50%;background:var(--text);color:#fff;display:flex;align-items:center;justify-content:center;font-size:var(--t-sm);font-weight:var(--w-bold);flex-shrink:0}
+.cook-step-body{padding:var(--s-16);display:flex;align-items:flex-start;gap:var(--s-12)}
+.cook-step-txt{font-size:var(--t-sm);line-height:1.5;color:var(--t2);flex:1}
+.cook-step.done{opacity:.3}
+.cook-step.done .cook-step-num{background:var(--ok)}
 
 /* ══════════════════════════════════════════════
    SHOPPING BASKET

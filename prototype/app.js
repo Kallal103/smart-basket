@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════
-   SMART BASKET v7 — App Logic (Premium, photo-first)
+   SMART BASKET v8 — App Logic (Modernized screens)
    ══════════════════════════════════════════════════════════════ */
 
 // ── APP STATE ──
@@ -12,6 +12,7 @@ const state = {
   pantryOwned: [],
   shoppingList: null,
   servings: 4,
+  planDay: 0,
 };
 
 // ── DOM HELPERS ──
@@ -53,6 +54,7 @@ function go(id) {
   if (id === 's-browse') renderRecipeGrid();
   if (id === 's-plan') {
     if (state.plan.length === 0) {
+      $('plan-day-tabs').innerHTML = '';
       $('plan-days').innerHTML = '<div style="text-align:center;padding:64px 24px;color:var(--t3)"><div style="width:56px;height:56px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;margin:0 auto"><svg viewBox="0 0 24 24" style="width:28px;height:28px;stroke:var(--t3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div style="font-size:18px;font-weight:800;color:var(--t2);letter-spacing:-.02em;margin-top:20px">No plan yet</div><div style="font-size:14px;margin-top:6px">Create a personalized meal plan</div><button class="btn btn-brand mt-24" style="max-width:200px;margin:24px auto 0" onclick="go(\'s-setup\')">Plan my week</button></div>';
       $('bb-amt').innerHTML = '৳0';
       $('bb-badge').textContent = 'No plan';
@@ -138,6 +140,7 @@ function generatePlan() {
     clearInterval(iv);
     state.plan = Engine.generatePlan(state.budget, state.servings, state.exclusions);
     state.shoppingList = null;
+    state.planDay = 0;
     hideLoad();
     go('s-plan');
     toast('Plan generated — ' + state.plan.length + ' meals');
@@ -145,15 +148,20 @@ function generatePlan() {
 }
 
 // ══════════════════════════════════════════════
-// RENDER: MEAL PLAN
+// RENDER: MEAL PLAN (day tabs + large cards)
 // ══════════════════════════════════════════════
+function selectPlanDay(d) {
+  state.planDay = d;
+  renderPlan();
+}
+
 function renderPlan() {
-  const container = $('plan-days');
   const dayCosts = Engine.dayCosts(state.plan, state.servings);
   const list = Engine.generateShoppingList(state.plan, state.servings, state.pantryOwned);
   const totalCost = list.payable;
   const underBudget = state.budget - totalCost;
 
+  // Budget bar
   $('bb-amt').innerHTML = Engine.fmt(totalCost);
   $('bb-sub').textContent = 'of ' + Engine.fmt(state.budget);
   const pct = Math.min((totalCost / state.budget) * 100, 100);
@@ -164,36 +172,65 @@ function renderPlan() {
     : 'Over by ' + Engine.fmt(-underBudget);
   $('bb-badge').className = 'badge ' + (totalCost <= state.budget ? 'b-ok' : 'b-brand');
 
-  let html = '';
-  for (let d = 0; d < 7; d++) {
-    const dayEntries = state.plan.filter(e => e.day === d);
-    html += `<div class="plan-day"><div class="plan-day-h"><span class="day-name">${DAY_NAMES[d]} &middot; ${DAY_DATES[d]}</span><span class="day-cost">${Engine.fmt(dayCosts[d])}</span></div>`;
-    for (const slot of ['breakfast', 'lunch', 'dinner']) {
-      const entry = dayEntries.find(e => e.slot === slot);
-      const recipe = entry ? RECIPES.find(r => r.id === entry.recipe) : null;
-      if (recipe) {
-        const cost = Engine.recipeCost(recipe, state.servings);
-        const mealPhoto = (typeof PHOTOS!=='undefined'?PHOTOS:{})[recipe.id]||'';
-        html += `<div class="plan-meal" onclick="showRecipeDetail('${recipe.id}')">
-          <div class="plan-meal-img" style="${mealPhoto?'background:url('+mealPhoto+') center/cover;':''}">${mealPhoto?'':recipe.ico}</div>
-          <div class="plan-meal-body">
-            <div class="plan-meal-slot">${SLOT_NAMES[slot]}</div>
-            <div class="plan-meal-name">${recipe.name}</div>
-            <div class="plan-meal-bn">${recipe.bn}</div>
-          </div>
-          <div class="plan-meal-price">${Engine.fmt(cost)}</div>
-          <span class="plan-meal-swap" onclick="event.stopPropagation();openSwapModal(${d},'${slot}')">Swap</span>
-        </div>`;
-      } else {
-        html += `<div class="plan-meal" onclick="openPickerModal(${d},'${slot}')">
-          <div class="plan-meal-img" style="background:var(--border-lt);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--t3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-          <div class="plan-meal-body"><div class="plan-meal-slot">${SLOT_NAMES[slot]}</div><div style="font-size:14px;color:var(--t3)">Tap to add a dish</div></div>
-        </div>`;
-      }
-    }
-    html += '</div>';
+  const d = state.planDay;
+
+  // Day tabs
+  let tabsHtml = '';
+  for (let i = 0; i < 7; i++) {
+    const shortDay = DAY_NAMES[i].slice(0, 3);
+    tabsHtml += `<button class="plan-day-tab${i === d ? ' on' : ''}" onclick="selectPlanDay(${i})">
+      <span class="tab-day">${shortDay}</span>
+      <span class="tab-date">${DAY_DATES[i]}</span>
+    </button>`;
   }
-  container.innerHTML = html;
+  $('plan-day-tabs').innerHTML = tabsHtml;
+
+  // Day content — large cards for selected day
+  const dayEntries = state.plan.filter(e => e.day === d);
+  let html = '';
+
+  // Day cost header
+  html += `<div class="plan-day-cost">
+    <span class="day-label">${DAY_NAMES[d]}</span>
+    <span class="day-total">${Engine.fmt(dayCosts[d])}</span>
+  </div>`;
+
+  for (const slot of ['breakfast', 'lunch', 'dinner']) {
+    const entry = dayEntries.find(e => e.slot === slot);
+    const recipe = entry ? RECIPES.find(r => r.id === entry.recipe) : null;
+
+    if (recipe) {
+      const cost = Engine.recipeCost(recipe, state.servings);
+      const mealPhoto = (typeof PHOTOS !== 'undefined' ? PHOTOS : {})[recipe.id] || '';
+
+      html += `<div class="plan-meal-card">
+        <div class="plan-meal-photo" onclick="showRecipeDetail('${recipe.id}')">
+          ${mealPhoto
+            ? `<img src="${mealPhoto}" alt="${recipe.name}">`
+            : `<div class="plan-meal-photo-empty"><span style="font-size:48px">${recipe.ico}</span></div>`
+          }
+          ${mealPhoto ? '<div class="plan-meal-gradient"></div>' : ''}
+          <div class="plan-meal-overlay">
+            <div class="plan-meal-slot-label">${SLOT_NAMES[slot]}</div>
+            <div class="plan-meal-name-overlay">${recipe.name}</div>
+          </div>
+        </div>
+        <div class="plan-meal-actions">
+          <span class="plan-meal-price-tag">${Engine.fmt(cost)}</span>
+          <span class="plan-meal-bn-label">${recipe.bn}</span>
+          <button class="plan-meal-swap-btn" onclick="openSwapModal(${d},'${slot}')">Swap</button>
+        </div>
+      </div>`;
+    } else {
+      html += `<div class="plan-empty-card" onclick="openPickerModal(${d},'${slot}')">
+        <div class="plan-empty-slot">${SLOT_NAMES[slot]}</div>
+        <svg viewBox="0 0 24 24" style="width:24px;height:24px;stroke:var(--t3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-top:8px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <div class="plan-empty-label">Tap to add a dish</div>
+      </div>`;
+    }
+  }
+
+  $('plan-days').innerHTML = html;
 }
 
 // ══════════════════════════════════════════════
@@ -271,7 +308,7 @@ function filterShoppingList() {
 }
 
 // ══════════════════════════════════════════════
-// RENDER: RECIPE GRID (mixed layout)
+// RENDER: RECIPE GRID (single-column cards)
 // ══════════════════════════════════════════════
 function renderRecipeGrid(query) {
   const q = (query || '').toLowerCase();
@@ -290,51 +327,29 @@ function renderRecipeGrid(query) {
   const ph = typeof PHOTOS !== 'undefined' ? PHOTOS : {};
   let html = '';
 
-  items.forEach((r, idx) => {
+  items.forEach((r) => {
     const cost = Engine.recipeCost(r, state.servings);
     const diffBadge = r.diff === 'Easy' ? 'b-ok' : r.diff === 'Medium' ? 'b-warn' : 'b-brand';
     const photo = ph[r.id] || ph._fallback || '';
 
-    // First item: full-width promo banner
-    if (idx === 0 && photo) {
-      html += `<div class="food-promo" onclick="showRecipeDetail('${r.id}')">
-        <div class="food-promo-img" style="background-image:url(${photo})"></div>
-        <div class="food-promo-info"><h3>${r.name}</h3><p>${Engine.fmt(cost)} &middot; ${r.time} min &middot; ${r.diff}</p></div>
-      </div>`;
-      return;
-    }
-
-    // Every 5th item: horizontal list card
-    if (idx > 0 && idx % 5 === 0 && photo) {
-      html += `<div class="food-list" onclick="showRecipeDetail('${r.id}')">
-        <div class="food-list-img" style="background-image:url(${photo})"></div>
-        <div class="food-list-body">
-          <div class="food-name">${r.name}</div>
-          <div class="food-bn">${r.bn}</div>
-          <div class="food-meta">
-            <span class="food-price">${Engine.fmt(cost)}</span>
-            <span style="color:var(--t3)">&middot;</span>
-            <span style="font-size:var(--t-xs);color:var(--t2)">${r.time} min</span>
-            <span class="badge ${diffBadge}" style="margin-left:auto">${r.diff}</span>
-          </div>
-        </div>
-      </div>`;
-      return;
-    }
-
-    // Standard 2-col card
-    html += `<div class="food-card" onclick="showRecipeDetail('${r.id}')">
-      <div class="food-img" style="${photo ? 'background:url('+photo+') center/cover;' : ''}">
-        ${photo ? '' : '<span style="font-size:48px">' + r.ico + '</span>'}
-        <span class="badge ${diffBadge} food-badge">${r.diff}</span>
-        <span class="food-time">${r.time}m</span>
+    html += `<div class="discover-card" onclick="showRecipeDetail('${r.id}')">
+      <div class="discover-card-img">
+        ${photo
+          ? `<img src="${photo}" alt="${r.name}" loading="lazy">`
+          : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:56px">${r.ico}</div>`
+        }
+        <span class="badge ${diffBadge} discover-card-badge">${r.diff}</span>
+        <span class="discover-card-time">${r.time}m</span>
       </div>
-      <div class="food-info">
-        <div class="food-name">${r.name}</div>
-        <div class="food-bn">${r.bn}</div>
-        <div class="food-meta">
-          <span class="food-price">${Engine.fmt(cost)}</span>
-          ${r.spice ? `<span class="food-rating">${'🌶'.repeat(r.spice)}</span>` : ''}
+      <div class="discover-card-body">
+        <div class="discover-card-name">${r.name}</div>
+        <div class="discover-card-bn">${r.bn}</div>
+        <div class="discover-card-meta">
+          <span class="discover-card-price">${Engine.fmt(cost)}</span>
+          <span class="discover-card-dot">&middot;</span>
+          <span class="discover-card-detail">${r.time} min</span>
+          <span class="discover-card-dot">&middot;</span>
+          <span class="discover-card-detail">${r.diff}</span>
         </div>
       </div>
     </div>`;
@@ -351,7 +366,7 @@ function filterRecipeCat(el, cat) {
 }
 
 // ══════════════════════════════════════════════
-// RECIPE DETAIL (immersive photo hero)
+// RECIPE DETAIL (title below hero, chips, timeline)
 // ══════════════════════════════════════════════
 let detailRecipeId = null;
 let detailServings = 4;
@@ -367,7 +382,6 @@ function renderRecipeDetail() {
   const r = RECIPES.find(x => x.id === detailRecipeId);
   if (!r) return;
 
-  $('rd-h').textContent = r.name;
   const ph = typeof PHOTOS !== 'undefined' ? PHOTOS : {};
   const photo = ph[r.id] || ph._fallback || '';
 
@@ -376,29 +390,34 @@ function renderRecipeDetail() {
   heroImg.style.backgroundImage = photo ? 'url(' + photo + ')' : '';
   heroImg.style.backgroundColor = photo ? '' : 'var(--bg2)';
 
+  // Title below hero
   $('rd-title').textContent = r.name;
   $('rd-bn').textContent = r.bn;
+
+  // Stat chips
   $('rd-time').textContent = r.time;
   $('rd-diff').textContent = r.diff;
   $('rd-cost').innerHTML = Engine.fmt(Engine.recipeCost(r, detailServings));
   $('srv-v').textContent = detailServings;
 
+  // Ingredients with checkboxes and alternating rows
   $('rd-ings').innerHTML = r.ingredients.map(ing => {
     const ingredient = INGREDIENTS[ing.id];
     const qty = ing.qty * detailServings;
     return `<div class="rd-ing-row">
+      <div class="rd-ing-chk" onclick="event.stopPropagation();this.classList.toggle('on')">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:.5"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
       <span class="rd-ing-name">${ingredient?.name || ing.id}</span>
       <span class="rd-ing-qty">${Engine.fmtQty(qty, ing.unit)}</span>
     </div>`;
   }).join('');
 
-  // Steps — numbered circles instead of gradient images
+  // Steps — vertical timeline
   $('rd-steps').innerHTML = r.steps.map((step, i) =>
-    `<div class="cook-step" onclick="this.classList.toggle('done')">
-      <div class="cook-step-body">
-        <div class="cook-step-num">${i + 1}</div>
-        <div class="cook-step-txt">${step}</div>
-      </div>
+    `<div class="rd-step" onclick="this.classList.toggle('done')">
+      <div class="rd-step-num">${i + 1}</div>
+      <div class="rd-step-txt">${step}</div>
     </div>`
   ).join('');
 }
