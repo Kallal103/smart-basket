@@ -271,7 +271,7 @@ function filterShoppingList() {
 }
 
 // ══════════════════════════════════════════════
-// RENDER: RECIPE GRID (with promo cards)
+// RENDER: RECIPE GRID (mixed layout)
 // ══════════════════════════════════════════════
 function renderRecipeGrid(query) {
   const q = (query || '').toLowerCase();
@@ -279,6 +279,13 @@ function renderRecipeGrid(query) {
     (recipeCat === 'all' || r.cat.includes(recipeCat)) &&
     (!q || r.name.toLowerCase().includes(q) || r.bn.includes(q))
   );
+
+  // Update result count
+  const countEl = $('r-count');
+  if (countEl) {
+    const catLabel = recipeCat === 'all' ? 'All dishes' : recipeCat.charAt(0).toUpperCase() + recipeCat.slice(1);
+    countEl.textContent = items.length + ' ' + catLabel.toLowerCase() + (items.length !== 1 ? ' recipes' : ' recipe');
+  }
 
   const ph = typeof PHOTOS !== 'undefined' ? PHOTOS : {};
   let html = '';
@@ -288,8 +295,8 @@ function renderRecipeGrid(query) {
     const diffBadge = r.diff === 'Easy' ? 'b-ok' : r.diff === 'Medium' ? 'b-warn' : 'b-brand';
     const photo = ph[r.id] || ph._fallback || '';
 
-    // Insert a full-width promo card every 4 items
-    if (idx > 0 && idx % 4 === 0 && photo) {
+    // First item: full-width promo banner
+    if (idx === 0 && photo) {
       html += `<div class="food-promo" onclick="showRecipeDetail('${r.id}')">
         <div class="food-promo-img" style="background-image:url(${photo})"></div>
         <div class="food-promo-info"><h3>${r.name}</h3><p>${Engine.fmt(cost)} &middot; ${r.time} min &middot; ${r.diff}</p></div>
@@ -297,6 +304,25 @@ function renderRecipeGrid(query) {
       return;
     }
 
+    // Every 5th item: horizontal list card
+    if (idx > 0 && idx % 5 === 0 && photo) {
+      html += `<div class="food-list" onclick="showRecipeDetail('${r.id}')">
+        <div class="food-list-img" style="background-image:url(${photo})"></div>
+        <div class="food-list-body">
+          <div class="food-name">${r.name}</div>
+          <div class="food-bn">${r.bn}</div>
+          <div class="food-meta">
+            <span class="food-price">${Engine.fmt(cost)}</span>
+            <span style="color:var(--t3)">&middot;</span>
+            <span style="font-size:var(--t-xs);color:var(--t2)">${r.time} min</span>
+            <span class="badge ${diffBadge}" style="margin-left:auto">${r.diff}</span>
+          </div>
+        </div>
+      </div>`;
+      return;
+    }
+
+    // Standard 2-col card
     html += `<div class="food-card" onclick="showRecipeDetail('${r.id}')">
       <div class="food-img" style="${photo ? 'background:url('+photo+') center/cover;' : ''}">
         ${photo ? '' : '<span style="font-size:48px">' + r.ico + '</span>'}

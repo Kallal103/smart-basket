@@ -178,17 +178,40 @@ body{font-family:var(--font);background:#343538;color:var(--text);-webkit-font-s
 .featured-meta{display:flex;gap:var(--s-12);margin-top:var(--s-8);font-size:var(--t-sm);color:rgba(255,255,255,.7)}
 
 /* ══════════════════════════════════════════════
-   FOOD CARDS
+   BROWSE / DISCOVER — Modern layout
+   ══════════════════════════════════════════════ */
+.browse-top{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border);padding-bottom:var(--s-4)}
+.browse-bar{display:flex;align-items:center;gap:var(--s-8);padding:var(--s-12) var(--s-16) var(--s-4)}
+.browse-back{width:40px;height:40px;border-radius:50%;border:0;background:var(--bg2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.browse-back:active{background:var(--border)}
+.browse-search{flex:1;display:flex;align-items:center;gap:var(--s-8);background:var(--bg2);border-radius:var(--r-lg);padding:0 var(--s-16);height:44px}
+.browse-search input{border:0;background:0;outline:0;font-size:var(--t-sm);font-family:var(--font);color:var(--text);flex:1;height:100%}
+.browse-search input::placeholder{color:var(--t3)}
+.browse-count{padding:var(--s-12) var(--s-16) var(--s-4);font-size:var(--t-xs);color:var(--t2);font-weight:var(--w-semi)}
+
+/* ══════════════════════════════════════════════
+   FOOD CARDS — Mixed layout
    ══════════════════════════════════════════════ */
 .food-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-8);padding:0 var(--s-16)}
-.food-promo{grid-column:1/-1;border-radius:var(--r-md);overflow:hidden;height:160px;position:relative;cursor:pointer}
+
+/* Full-width feature card */
+.food-promo{grid-column:1/-1;border-radius:var(--r-md);overflow:hidden;height:180px;position:relative;cursor:pointer}
 .food-promo:active{transform:scale(.98)}
 .food-promo-img{position:absolute;inset:0;background:center/cover}
-.food-promo-img::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(0,0,0,.6))}
+.food-promo-img::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(0,0,0,.65))}
 .food-promo-info{position:absolute;bottom:0;left:0;right:0;padding:var(--s-16);color:#fff;z-index:2}
 .food-promo-info h3{font-size:var(--t-lg);font-weight:var(--w-bold)}
 .food-promo-info p{font-size:var(--t-xs);opacity:.7;margin-top:2px}
 
+/* Single-column list card (alternates with grid) */
+.food-list{grid-column:1/-1;display:flex;gap:var(--s-12);background:#fff;border-radius:var(--r-md);box-shadow:var(--sh);padding:var(--s-12);cursor:pointer;align-items:center}
+.food-list:active{transform:scale(.98)}
+.food-list-img{width:88px;height:88px;border-radius:var(--r-sm);flex-shrink:0;background:center/cover;position:relative;overflow:hidden}
+.food-list-body{flex:1;min-width:0}
+.food-list-body .food-name{font-size:var(--t-md)}
+.food-list-body .food-meta{margin-top:var(--s-4)}
+
+/* Standard 2-col card */
 .food-card{border-radius:var(--r-md);overflow:hidden;background:#fff;box-shadow:var(--sh);cursor:pointer}
 .food-card:active{transform:scale(.97)}
 .food-img{height:140px;display:flex;align-items:center;justify-content:center;position:relative;background:var(--bg2);overflow:hidden}

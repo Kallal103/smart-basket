@@ -95,10 +95,15 @@
 
 <!-- ══ BROWSE MEALS ══ -->
 <div id="s-browse" class="scr">
-  <div class="hdr"><button class="hdr-back" onclick="go('s-home')"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="15 18 9 12 15 6"/></svg></button><h1><span class="en-only">Discover</span><span class="bn-only">খাবার দেখুন</span></h1><span class="hdr-logo">unimart</span></div>
-  <div class="search"><span class="search-ico"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><input placeholder="Search dishes..." id="r-q" oninput="renderRecipeGrid(this.value)"></div>
-  <div class="pills" id="r-pills"><button class="pill on" onclick="filterRecipeCat(this,'all')">All</button><button class="pill" onclick="filterRecipeCat(this,'breakfast')">Breakfast</button><button class="pill" onclick="filterRecipeCat(this,'lunch')">Lunch</button><button class="pill" onclick="filterRecipeCat(this,'dinner')">Dinner</button><button class="pill" onclick="filterRecipeCat(this,'fish')">Fish</button><button class="pill" onclick="filterRecipeCat(this,'chicken')">Chicken</button><button class="pill" onclick="filterRecipeCat(this,'veg')">Veg</button><button class="pill" onclick="filterRecipeCat(this,'quick')">Quick</button></div>
-  <div class="food-grid mt-12" id="r-grid"></div>
+  <div class="browse-top">
+    <div class="browse-bar">
+      <button class="browse-back" onclick="go('s-home')"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div class="browse-search"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--t3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input placeholder="Search dishes..." id="r-q" oninput="renderRecipeGrid(this.value)"></div>
+    </div>
+    <div class="pills" id="r-pills"><button class="pill on" onclick="filterRecipeCat(this,'all')">All</button><button class="pill" onclick="filterRecipeCat(this,'breakfast')">Breakfast</button><button class="pill" onclick="filterRecipeCat(this,'lunch')">Lunch</button><button class="pill" onclick="filterRecipeCat(this,'dinner')">Dinner</button><button class="pill" onclick="filterRecipeCat(this,'fish')">Fish</button><button class="pill" onclick="filterRecipeCat(this,'chicken')">Chicken</button><button class="pill" onclick="filterRecipeCat(this,'veg')">Veg</button><button class="pill" onclick="filterRecipeCat(this,'quick')">Quick</button></div>
+  </div>
+  <div class="browse-count" id="r-count"></div>
+  <div class="food-grid" id="r-grid"></div>
   <div class="bnav">
     <button onclick="go('s-home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</button>
     <button class="on"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Discover</button>
