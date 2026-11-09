@@ -99,7 +99,7 @@ body{font-family:var(--font);background:#343538;color:var(--text);-webkit-font-s
 .btn-ok{background:var(--ok);color:#fff}
 .btn-dark{background:var(--text);color:#fff}
 .btn-white{background:#fff;color:var(--text);box-shadow:var(--sh)}
-.btn-out{background:#fff;color:var(--brand);border:1.5px solid var(--border)}
+.btn-out{background:#fff;color:var(--brand);border:1.5px solid var(--brand)}
 .btn-ghost{background:0;color:var(--brand);padding:var(--s-8);font-size:var(--t-sm);width:auto;margin:0 auto}
 
 /* Badges */
